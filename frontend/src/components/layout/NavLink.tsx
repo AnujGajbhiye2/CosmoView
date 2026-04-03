@@ -20,8 +20,8 @@ export const NavLink = ({ href, label }: NavLinkProps): ReactElement => {
       className={cn(
         'rounded-full border px-4 py-2 text-sm transition-colors',
         isActive
-          ? 'border-[var(--color-glow)] bg-[var(--color-glow)]/12 text-white'
-          : 'border-white/10 bg-white/4 text-white/72 hover:border-white/20 hover:bg-white/8 hover:text-white'
+          ? 'border-[var(--color-glow)] bg-[var(--color-glow)]/12 text-[var(--color-text-strong)]'
+          : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] text-[var(--color-text-muted)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-panel)] hover:text-[var(--color-text-strong)]'
       )}
     >
       {label}

@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { PropsWithChildren, ReactElement } from 'react';
 import { useState } from 'react';
+import { ThemeProvider } from '@/features/theme/providers/ThemeProvider';
 
 const createQueryClient = (): QueryClient => new QueryClient({
   defaultOptions: {
@@ -18,9 +19,11 @@ export const AppProviders = ({ children }: PropsWithChildren): ReactElement => {
   const [queryClient] = useState(createQueryClient);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };

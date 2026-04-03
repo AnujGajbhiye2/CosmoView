@@ -1,12 +1,16 @@
 import type { ReactElement } from 'react';
-import { RoutePlaceholder } from '@/components/feedback/RoutePlaceholder';
+import { Suspense } from 'react';
+import { ErrorBoundary } from '@/components/feedback/ErrorBoundary';
+import { MissionControlFallback } from '@/features/mission-control/components/MissionControlFallback';
+import { MissionControlError } from '@/features/mission-control/components/MissionControlError';
+import { MissionControlOverview } from '@/features/mission-control/components/MissionControlOverview';
 
 export const RootPage = (): ReactElement => {
   return (
-    <RoutePlaceholder
-      eyebrow="Overview"
-      title="A mission-control interface for NASA imagery, asteroid analytics, and Earth observation."
-      description="This foundation phase establishes the architecture, theming, routing, and provider tree. The dashboard content and live data modules will be layered in next."
-    />
+    <ErrorBoundary fallback={<MissionControlError />}>
+      <Suspense fallback={<MissionControlFallback />}>
+        <MissionControlOverview />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
