@@ -1,0 +1,34 @@
+import type { PropsWithChildren, ReactElement } from 'react';
+import { NavLink } from './NavLink';
+
+const navigationItems = [
+  { href: '/', label: 'Mission Control' },
+  { href: '/apod', label: 'APOD' },
+  { href: '/asteroids', label: 'Asteroids' },
+  { href: '/earth', label: 'Earth' },
+  { href: '/library', label: 'Library' }
+] as const;
+
+export const AppShell = ({ children }: PropsWithChildren): ReactElement => {
+  return (
+    <div className="min-h-screen bg-[var(--color-space)] text-[var(--color-ice)]">
+      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(110,185,255,0.18),_transparent_38%),radial-gradient(circle_at_bottom_right,_rgba(248,167,92,0.14),_transparent_30%)]" />
+      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
+        <header className="mb-8 flex flex-col gap-5 rounded-[2rem] border border-white/10 bg-white/6 px-5 py-4 shadow-[0_20px_80px_rgba(3,8,21,0.45)] backdrop-blur md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.38em] text-[var(--color-glow)]">CosmoView</p>
+            <h1 className="font-[var(--font-display)] text-2xl tracking-[-0.04em] text-white sm:text-3xl">
+              Mission Control
+            </h1>
+          </div>
+          <nav className="flex flex-wrap gap-2">
+            {navigationItems.map((item) => (
+              <NavLink key={item.href} href={item.href} label={item.label} />
+            ))}
+          </nav>
+        </header>
+        <main className="flex-1">{children}</main>
+      </div>
+    </div>
+  );
+};
