@@ -1,0 +1,86 @@
+import type { ReactElement } from 'react';
+import { useState } from 'react';
+import { useEpic } from '../hooks/useEpic';
+
+interface EarthExplorerProps {
+  date: string;
+}
+
+export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
+  const { data } = useEpic(date);
+  const [selectedIdentifier, setSelectedIdentifier] = useState<string | null>(data[0]?.identifier ?? null);
+  const selectedImage = data.find((image) => image.identifier === selectedIdentifier) ?? data[0] ?? null;
+
+  if (!selectedImage) {
+    return (
+      <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
+        <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">EPIC natural imagery</p>
+        <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
+          No EPIC imagery is currently available for {date}.
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--color-text-muted)]">
+          Try a nearby date. EPIC availability is uneven, so some calendar days do not return image sets.
+        </p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+      <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+        <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">EPIC natural imagery</p>
+        <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
+          Earth on {date}
+        </h2>
+        <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
+          Browse the available frames for this date and inspect the corresponding observation metadata.
+        </p>
+        <div className="mt-6 grid gap-3 max-h-[32rem] overflow-auto pr-1">
+          {data.map((image) => {
+            const isActive = image.identifier === selectedImage.identifier;
+
+            return (
+              <button
+                key={image.identifier}
+                type="button"
+                onClick={() => setSelectedIdentifier(image.identifier)}
+                className={`rounded-[1.5rem] border p-4 text-left transition ${
+                  isActive
+                    ? 'border-[var(--color-glow-strong)] bg-[var(--color-glow-strong)]/10'
+                    : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
+                }`}
+              >
+                <p className="text-sm font-medium text-[var(--color-text-strong)]">{image.identifier}</p>
+                <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">{image.caption}</p>
+              </button>
+            );
+          })}
+        </div>
+      </article>
+      <article className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
+        <img src={selectedImage.archiveUrl} alt={selectedImage.caption} className="h-80 w-full object-cover sm:h-[28rem]" />
+        <div className="p-6">
+          <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Selected frame</p>
+          <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">
+            {selectedImage.identifier}
+          </h3>
+          <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">{selectedImage.caption}</p>
+          <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
+              <dt className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Timestamp</dt>
+              <dd className="mt-2 text-lg font-medium text-[var(--color-text-strong)]">{selectedImage.date}</dd>
+            </div>
+            <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
+              <dt className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Centroid</dt>
+              <dd className="mt-2 text-lg font-medium text-[var(--color-text-strong)]">
+                {selectedImage.centroidCoordinates
+                  ? `${selectedImage.centroidCoordinates.lat.toFixed(2)}, ${selectedImage.centroidCoordinates.lon.toFixed(2)}`
+                  : 'Unavailable'}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+    </section>
+  );
+};

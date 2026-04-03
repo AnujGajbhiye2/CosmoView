@@ -1,12 +1,56 @@
 import type { ReactElement } from 'react';
-import { RoutePlaceholder } from '@/components/feedback/RoutePlaceholder';
+import { Suspense, useState } from 'react';
+import { ErrorBoundary } from '@/components/feedback/ErrorBoundary';
+import { PanelSkeleton } from '@/components/feedback/PanelSkeleton';
+import { DateNavigation } from '@/components/controls/DateNavigation';
+import { ApodExplorer } from '@/features/apod/components/ApodExplorer';
+import { shiftIsoDate, toIsoDate } from '@/features/apod/helpers/date';
+
+const today = toIsoDate(new Date());
 
 export const ApodPage = (): ReactElement => {
+  const [selectedDate, setSelectedDate] = useState<string>(today);
+
+  const handleShift = (days: number): void => {
+    const nextDate = shiftIsoDate(selectedDate, days);
+    setSelectedDate(nextDate > today ? today : nextDate);
+  };
+
   return (
-    <RoutePlaceholder
-      eyebrow="APOD Explorer"
-      title="Astronomy Picture of the Day will become the narrative anchor for the experience."
-      description="The route and shell are ready. In the next feature phases this page gets date controls, media rendering, metadata panels, and history navigation."
-    />
+    <div className="space-y-4">
+      <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
+        <p className="text-xs uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">APOD Explorer</p>
+        <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
+          Navigate NASA's daily astronomy storytelling frame by frame.
+        </h2>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--color-text-muted)]">
+          Move through the archive, inspect the metadata, and treat each day as a self-contained mission brief for the
+          cosmos.
+        </p>
+      </section>
+
+      <DateNavigation
+        label="Select APOD date"
+        value={selectedDate}
+        max={today}
+        onChange={setSelectedDate}
+        onShift={handleShift}
+      />
+
+      <ErrorBoundary
+        fallback={
+          <section className="rounded-[2rem] border border-[var(--color-alert)]/20 bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
+            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-alert)]">APOD unavailable</p>
+            <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
+              The selected APOD entry could not be loaded. Try a nearby date or confirm that the backend is running.
+            </p>
+          </section>
+        }
+      >
+        <Suspense fallback={<PanelSkeleton className="min-h-[32rem]" />}>
+          <ApodExplorer key={selectedDate} date={selectedDate} />
+        </Suspense>
+      </ErrorBoundary>
+    </div>
   );
 };
