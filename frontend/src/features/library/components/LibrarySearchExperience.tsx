@@ -58,7 +58,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
 
   if (aggregatedResults.items.length === 0) {
     return (
-      <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
+      <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
         <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">No matching images</p>
         <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
           The archive did not return results for "{query}".
@@ -73,7 +73,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
   return (
     <section className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
       <div className="space-y-4">
-        <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Search results</p>
@@ -87,7 +87,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
           </div>
         </article>
 
-        <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4 shadow-[0_24px_80px_var(--color-shadow)]">
           <div ref={resultsPaneRef} className="max-h-[58rem] overflow-y-auto pr-2">
             <div className="grid gap-4 sm:grid-cols-2">
               {aggregatedResults.items.map((item) => {
@@ -98,7 +98,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
                     key={item.nasaId}
                     type="button"
                     onClick={() => setSelectedId(item.nasaId)}
-                    className={`overflow-hidden rounded-[1.75rem] border text-left shadow-[0_24px_80px_var(--color-shadow)] transition ${
+                    className={`overflow-hidden rounded-[0.875rem] border text-left shadow-[0_24px_80px_var(--color-shadow)] transition ${
                       isActive
                         ? 'border-[var(--color-glow-strong)] bg-[var(--color-panel)]'
                         : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
@@ -145,7 +145,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
       </div>
 
       <div className="space-y-4">
-        <article className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="overflow-hidden rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
           {selectedItem?.originalImageUrl ? (
             <img src={selectedItem.originalImageUrl} alt={selectedItem.title} loading="eager" decoding="async" className="h-72 w-full object-cover" />
           ) : (
@@ -163,11 +163,11 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
             </p>
             {selectedItem ? (
               <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
+                <div className="rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
                   <dt className="text-xs uppercase tracking-[0.24em] text-[var(--color-text-faint)]">NASA ID</dt>
                   <dd className="mt-2 text-sm text-[var(--color-text-strong)]">{selectedItem.nasaId}</dd>
                 </div>
-                <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
+                <div className="rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
                   <dt className="text-xs uppercase tracking-[0.24em] text-[var(--color-text-faint)]">Created</dt>
                   <dd className="mt-2 text-sm text-[var(--color-text-strong)]">{selectedItem.dateCreated}</dd>
                 </div>

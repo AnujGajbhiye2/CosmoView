@@ -13,7 +13,7 @@ export const SpaceLoader = ({
 }: SpaceLoaderProps): ReactElement => {
   return (
     <section
-      className={`rounded-[2rem] border border-[var(--color-border)] bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-panel)_94%,transparent),color-mix(in_srgb,var(--color-space-elevated)_82%,transparent))] p-6 shadow-[0_24px_80px_var(--color-shadow)] ${className}`}
+      className={`rounded-[1rem] border border-[var(--color-border)] bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-panel)_94%,transparent),color-mix(in_srgb,var(--color-space-elevated)_82%,transparent))] p-6 shadow-[0_24px_80px_var(--color-shadow)] ${className}`}
     >
       <div className="flex h-full min-h-[inherit] items-center justify-center">
         <div className="flex max-w-xl flex-col items-center text-center">
@@ -28,7 +28,7 @@ export const SpaceLoader = ({
                   src="/rocket.svg"
                   alt=""
                   aria-hidden="true"
-                  className="h-7 w-7 -rotate-45 opacity-95 drop-shadow-[0_0_10px_rgba(129,199,255,0.28)]"
+                  className="rocket-icon h-7 w-7 -rotate-45 opacity-95 drop-shadow-[0_0_10px_rgba(129,199,255,0.28)]"
                 />
               </div>
             </div>

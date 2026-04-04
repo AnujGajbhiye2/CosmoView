@@ -25,14 +25,16 @@ const formatNumber = (value: number): string => new Intl.NumberFormat('en-US', {
 const truncateName = (name: string): string => name.replace(/[()]/g, '').trim().slice(0, 22);
 
 const tooltipStyle = {
-  background: 'var(--color-panel)',
-  border: '1px solid var(--color-border)',
+  background: 'var(--color-space-elevated)',
+  border: '1px solid var(--color-border-strong)',
   borderRadius: '0.75rem',
   fontSize: '12px',
-  color: 'var(--color-text-muted)'
+  color: 'var(--color-text-muted)',
+  boxShadow: '0 8px 32px var(--color-shadow)'
 };
 
 const labelStyle = { color: 'var(--color-text-strong)', marginBottom: '2px' };
+const itemStyle = { color: 'var(--color-text-muted)' };
 const rowsPerPage = 10;
 
 type SortKey = 'name' | 'closeApproachDate' | 'velocityKph' | 'missDistanceKm' | 'diameterKmMax';
@@ -131,7 +133,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
   return (
     <section className="space-y-4">
       <div className="grid gap-4 lg:grid-cols-4">
-        <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-center gap-1.5">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Tracked objects</p>
             <InfoTooltip text="The number of near-Earth objects NASA returned for the selected date range." />
@@ -141,7 +143,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
             Total near-Earth objects reported by NASA for this date window.
           </p>
         </article>
-        <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-center gap-1.5">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Hazardous objects</p>
             <InfoTooltip text="NASA's potentially hazardous flag is a classification based on orbit and size. It does not mean an impact is predicted." />
@@ -151,7 +153,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
             NASA has tagged these objects as potentially hazardous, not as impact predictions.
           </p>
         </article>
-        <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-center gap-1.5">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Fastest object</p>
             <InfoTooltip text="The object moving fastest relative to Earth at its closest approach in the selected date range." />
@@ -164,7 +166,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
             This is the highest reported approach speed relative to Earth in this window.
           </p>
         </article>
-        <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-center gap-1.5">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Closest pass</p>
             <InfoTooltip text="The object with the smallest reported miss distance in the selected date range." />
@@ -180,10 +182,10 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
-        <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+        <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Velocity profile</p>
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">Velocity profile</p>
               <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
                 Relative speed across the watch window
               </h3>
@@ -214,6 +216,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
                     cursor={{ fill: 'var(--color-panel-soft)' }}
                     contentStyle={tooltipStyle}
                     labelStyle={labelStyle}
+                    itemStyle={itemStyle}
                     formatter={(value: unknown) => [`${formatNumber(value as number)} km/h`, 'Velocity']}
                   />
                   <Bar
@@ -222,7 +225,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
                     label={{ position: 'right', fontSize: 11, fill: 'var(--color-text-faint)', formatter: (value: number) => formatNumber(value) }}
                   >
                     {velocityData.map((entry, index) => (
-                      <Cell key={index} fill={entry.hazardous ? 'var(--color-alert)' : 'var(--color-glow-strong)'} />
+                      <Cell key={index} fill={entry.hazardous ? 'var(--color-alert)' : '#60a5fa'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -231,8 +234,8 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
           </div>
         </article>
 
-        <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Risk matrix</p>
+        <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">Risk matrix</p>
           <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
             Size vs. miss distance
           </h3>
@@ -271,8 +274,8 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
                       return (
                         <div style={tooltipStyle} className="p-3">
                           <p style={labelStyle} className="font-medium">{point.name}</p>
-                          <p>Miss: {formatNumber(point.miss * 1000)} km</p>
-                          <p>Diameter: {point.diameter} km</p>
+                          <p style={itemStyle}>Miss: {formatNumber(point.miss * 1000)} km</p>
+                          <p style={itemStyle}>Diameter: {point.diameter} km</p>
                         </div>
                       );
                     }}
@@ -285,7 +288,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
                     )}
                   />
                   {safeScatter.length > 0 ? (
-                    <Scatter name="Safe" data={safeScatter} fill="var(--color-glow-strong)" opacity={0.8} />
+                    <Scatter name="Safe" data={safeScatter} fill="#60a5fa" opacity={0.8} />
                   ) : null}
                   {hazardousScatter.length > 0 ? (
                     <Scatter name="Hazardous" data={hazardousScatter} fill="var(--color-alert)" opacity={0.9} />
@@ -297,10 +300,10 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
         </article>
       </div>
 
-      <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+      <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Inspection table</p>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">Inspection table</p>
             <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
               Raw close-approach view
             </h3>
@@ -371,12 +374,12 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
             </thead>
             <tbody>
               {paginatedRows.map((asteroid) => (
-                <tr key={`${asteroid.id}-row`} className="rounded-[1.25rem] bg-[var(--color-panel-soft)] text-sm text-[var(--color-text-muted)]">
-                  <td className="rounded-l-[1.25rem] px-4 py-4 text-[var(--color-text-strong)]">{asteroid.name}</td>
+                <tr key={`${asteroid.id}-row`} className="rounded-[0.625rem] bg-[var(--color-panel-soft)] text-sm text-[var(--color-text-muted)]">
+                  <td className="rounded-l-[0.625rem] px-4 py-4 text-[var(--color-text-strong)]">{asteroid.name}</td>
                   <td className="px-4 py-4">{asteroid.closeApproachDate}</td>
                   <td className="px-4 py-4">{formatNumber(asteroid.velocityKph)} km/h</td>
                   <td className="px-4 py-4">{formatNumber(asteroid.missDistanceKm)} km</td>
-                  <td className="rounded-r-[1.25rem] px-4 py-4">{asteroid.diameterKmMax.toFixed(2)} km</td>
+                  <td className="rounded-r-[0.625rem] px-4 py-4">{asteroid.diameterKmMax.toFixed(2)} km</td>
                 </tr>
               ))}
             </tbody>

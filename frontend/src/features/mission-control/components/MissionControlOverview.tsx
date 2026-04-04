@@ -24,7 +24,7 @@ export const MissionControlOverview = (): ReactElement => {
 
   return (
     <section className="grid gap-4 lg:grid-cols-12">
-      <article className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[var(--color-panel-strong)] p-8 shadow-[0_28px_80px_var(--color-shadow)] lg:col-span-8">
+      <article className="relative overflow-hidden rounded-[1rem] border border-white/10 bg-[var(--color-panel-strong)] p-8 shadow-[0_28px_80px_var(--color-shadow)] lg:col-span-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--color-glow-soft),_transparent_34%)] opacity-80" />
         <div className="relative flex h-full flex-col justify-between gap-6">
           <div>
@@ -38,7 +38,7 @@ export const MissionControlOverview = (): ReactElement => {
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/6 p-4">
+            <div className="rounded-[0.75rem] border border-white/10 bg-white/6 p-4">
               <p className="flex items-center text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">
                 APOD
                 <InfoTooltip text="Astronomy Picture of the Day — NASA's daily featured image or video of our universe, with a description written by a professional astronomer." />
@@ -46,7 +46,7 @@ export const MissionControlOverview = (): ReactElement => {
               <p className="mt-3 text-2xl font-semibold text-[var(--color-text-strong)]">{formatCompactDate(apod.date)}</p>
               <p className="mt-2 text-sm text-[var(--color-text-muted)]">{apod.title}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/6 p-4">
+            <div className="rounded-[0.75rem] border border-white/10 bg-white/6 p-4">
               <p className="flex items-center text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">
                 Hazardous objects
                 <InfoTooltip text="Potentially Hazardous Asteroids (PHAs) — objects whose orbit brings them within 0.05 AU of Earth and whose diameter exceeds ~140 m." />
@@ -56,7 +56,7 @@ export const MissionControlOverview = (): ReactElement => {
                 In the {asteroidRange.startDate} to {asteroidRange.endDate} watch window.
               </p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/6 p-4">
+            <div className="rounded-[0.75rem] border border-white/10 bg-white/6 p-4">
               <p className="flex items-center text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">
                 Library pulse
                 <InfoTooltip text="Live count of results from NASA's image archive for the current teaser search term (default: 'nebula')." />
@@ -68,7 +68,7 @@ export const MissionControlOverview = (): ReactElement => {
         </div>
       </article>
 
-      <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
+      <article className="overflow-hidden rounded-[1rem] border border-white/10 bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
         {apod.imageUrl ? (
           <img src={apod.imageUrl} alt={apod.title} loading="eager" decoding="async" className="h-56 w-full object-cover" />
         ) : (
@@ -89,14 +89,14 @@ export const MissionControlOverview = (): ReactElement => {
         </div>
       </article>
 
-      <article className="rounded-[2rem] border border-white/10 bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
+      <article className="rounded-[1rem] border border-white/10 bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
         <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Asteroid watch</p>
         <div className="mt-6 grid gap-4">
-          <div className="rounded-[1.5rem] border border-white/8 bg-[var(--color-panel-strong)] p-4">
+          <div className="rounded-[0.75rem] border border-white/8 bg-[var(--color-panel-strong)] p-4">
             <p className="text-sm text-[var(--color-text-muted)]">Tracked objects</p>
             <p className="mt-2 text-3xl font-semibold text-[var(--color-text-strong)]">{asteroidFeed.counts.total}</p>
           </div>
-          <div className="rounded-[1.5rem] border border-white/8 bg-[var(--color-panel-strong)] p-4">
+          <div className="rounded-[0.75rem] border border-white/8 bg-[var(--color-panel-strong)] p-4">
             <p className="text-sm text-[var(--color-text-muted)]">Average velocity</p>
             <p className="mt-2 text-3xl font-semibold text-[var(--color-text-strong)]">
               {averageVelocity.toLocaleString('en-US')} <span className="text-base text-[var(--color-text-faint)]">km/h</span>
@@ -116,7 +116,7 @@ export const MissionControlOverview = (): ReactElement => {
         </div>
       </article>
 
-      <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
+      <article className="overflow-hidden rounded-[1rem] border border-white/10 bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
         {featuredEpic?.archiveUrl ? (
           <img src={featuredEpic.archiveUrl} alt={featuredEpic.caption} loading="lazy" decoding="async" className="h-52 w-full object-cover" />
         ) : (
@@ -138,7 +138,7 @@ export const MissionControlOverview = (): ReactElement => {
         </div>
       </article>
 
-      <article className="rounded-[2rem] border border-white/10 bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
+      <article className="rounded-[1rem] border border-white/10 bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
         <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Library signal</p>
         <div className="mt-5 flex gap-4">
           {featuredSearch?.previewImageUrl ? (
@@ -147,10 +147,10 @@ export const MissionControlOverview = (): ReactElement => {
               alt={featuredSearch.title}
               loading="lazy"
               decoding="async"
-              className="h-28 w-28 rounded-[1.5rem] object-cover"
+              className="h-28 w-28 rounded-[0.75rem] object-cover"
             />
           ) : (
-            <div className="h-28 w-28 rounded-[1.5rem] bg-[var(--color-panel-strong)]" />
+            <div className="h-28 w-28 rounded-[0.75rem] bg-[var(--color-panel-strong)]" />
           )}
           <div className="min-w-0">
             <h3 className="text-xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">

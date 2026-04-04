@@ -28,7 +28,7 @@ interface DateNavigationProps {
   min?: string;
   max?: string;
   onChange: (nextDate: string) => void;
-  onShift: (days: number) => void;
+  onShift?: (days: number) => void;
 }
 
 export const DateNavigation = ({
@@ -73,16 +73,18 @@ export const DateNavigation = ({
   }, [isOpen]);
 
   return (
-    <div className="flex flex-col gap-3 rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4">
+    <div className="flex h-full flex-col gap-3 rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4">
       <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">{label}</p>
       <div className="flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          onClick={() => onShift(-1)}
-          className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
-        >
-          Previous
-        </button>
+        {onShift ? (
+          <button
+            type="button"
+            onClick={() => onShift(-1)}
+            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+          >
+            Previous
+          </button>
+        ) : null}
         <div ref={containerRef} className="relative">
           <button
             type="button"
@@ -115,7 +117,7 @@ export const DateNavigation = ({
               id={calendarId}
               role="dialog"
               aria-label={`${label} calendar`}
-              className="absolute left-0 top-full z-20 mt-3 rounded-[1.25rem] border border-[var(--color-border)] bg-[var(--color-space-elevated)] p-3 shadow-[0_20px_60px_var(--color-shadow)]"
+              className="absolute left-0 top-full z-20 mt-3 rounded-[0.625rem] border border-[var(--color-border)] bg-[var(--color-space-elevated)] p-3 shadow-[0_20px_60px_var(--color-shadow)]"
             >
               <DayPicker
                 mode="single"
@@ -160,13 +162,15 @@ export const DateNavigation = ({
             </div>
           ) : null}
         </div>
-        <button
-          type="button"
-          onClick={() => onShift(1)}
-          className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
-        >
-          Next
-        </button>
+        {onShift ? (
+          <button
+            type="button"
+            onClick={() => onShift(1)}
+            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+          >
+            Next
+          </button>
+        ) : null}
       </div>
     </div>
   );

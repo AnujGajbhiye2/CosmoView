@@ -14,7 +14,7 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
 
   if (!selectedImage) {
     return (
-      <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
+      <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
         <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">EPIC natural imagery</p>
         <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
           No EPIC imagery is currently available for {date}.
@@ -28,7 +28,7 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
 
   return (
     <section className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
-      <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+      <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
         <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">EPIC natural imagery</p>
         <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
           Earth on {date}
@@ -45,7 +45,7 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
                 key={image.identifier}
                 type="button"
                 onClick={() => setSelectedIdentifier(image.identifier)}
-                className={`rounded-[1.5rem] border p-4 text-left transition ${
+                className={`rounded-[0.75rem] border p-4 text-left transition ${
                   isActive
                     ? 'border-[var(--color-glow-strong)] bg-[var(--color-glow-strong)]/10'
                     : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
@@ -58,7 +58,7 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
           })}
         </div>
       </article>
-      <article className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
+      <article className="overflow-hidden rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
         <img src={selectedImage.archiveUrl} alt={selectedImage.caption} loading="eager" decoding="async" className="h-80 w-full object-cover sm:h-[28rem]" />
         <div className="p-6">
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Selected frame</p>
@@ -67,11 +67,11 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
           </h3>
           <p className="mt-4 text-base leading-7 text-[var(--color-text-faint)]">{selectedImage.caption}</p>
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
+            <div className="rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
               <dt className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Timestamp</dt>
               <dd className="mt-2 text-lg font-medium text-[var(--color-text-strong)]">{selectedImage.date}</dd>
             </div>
-            <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
+            <div className="rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
               <dt className="flex items-center text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">
                 Centroid
                 <InfoTooltip text="The geographic center of the full-disk Earth image, expressed as latitude and longitude." />

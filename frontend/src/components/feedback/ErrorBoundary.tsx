@@ -4,6 +4,7 @@ import { Component } from 'react';
 interface ErrorBoundaryProps extends PropsWithChildren {
   fallback?: ReactNode;
   renderFallback?: (retry: () => void) => ReactNode;
+  onReset?: () => void;
 }
 
 interface ErrorBoundaryState {
@@ -25,7 +26,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   public render(): ReactNode {
     if (this.state.hasError) {
-      const retry = (): void => this.setState({ hasError: false });
+      const retry = (): void => {
+        this.props.onReset?.();
+        this.setState({ hasError: false });
+      };
       if (this.props.renderFallback) {
         return this.props.renderFallback(retry);
       }
