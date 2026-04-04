@@ -23,14 +23,14 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    // ignoreDeprecations is needed to ignore the deprecation of the `@types/react` package, which is still required for React 17 support
-    // "baseUrl": ".",
-    // "paths": {
-    //   "@/*": ["src/*"],
-    //   "~components/*": ["src/components/*"],
-    //   "~features/*": ["src/features/*"],
-    //   "~types/*": ["src/types/*"]
-    // }
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~components/*": ["src/components/*"],
+      "~features/*": ["src/features/*"],
+      "~types/*": ["src/types/*"]
+    }
   },
   "include": ["src"]
 }

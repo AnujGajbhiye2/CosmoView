@@ -19,7 +19,7 @@ export const AppShell = ({ children }: PropsWithChildren): ReactElement => {
         <header className="mb-8 flex flex-col gap-5 rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] px-5 py-4 shadow-[0_20px_80px_var(--color-shadow)] backdrop-blur md:flex-row md:items-center md:justify-between">
           <div className="flex items-start justify-between gap-4 md:block">
             <div>
-            <p className="text-xs uppercase tracking-[0.38em] text-[var(--color-glow)]">CosmoView</p>
+            <p className="text-xs font-bold uppercase tracking-[0.38em] text-[var(--color-glow)]">CosmoView</p>
               <h1 className="font-[var(--font-display)] text-2xl tracking-[-0.04em] text-[var(--color-text-strong)] sm:text-3xl">
               Mission Control
             </h1>

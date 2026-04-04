@@ -17,7 +17,7 @@ export const ExplorerCopilot = ({
 
   return (
     <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-      <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Explorer Copilot</p>
+      <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Explorer Copilot</p>
       <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
         Mission brief for the current search
       </h3>

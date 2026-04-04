@@ -7,7 +7,7 @@ import { MissionControlOverview } from '@/features/mission-control/components/Mi
 
 export const RootPage = (): ReactElement => {
   return (
-    <ErrorBoundary fallback={<MissionControlError />}>
+    <ErrorBoundary renderFallback={(retry) => <MissionControlError onRetry={retry} />}>
       <Suspense fallback={<MissionControlFallback />}>
         <MissionControlOverview />
       </Suspense>

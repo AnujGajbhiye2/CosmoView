@@ -1,48 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --color-space: #07111d;
+/*
+ * ============================================================
+ *  DESIGN TOKENS — single source of truth for all visual
+ *  properties. Edit values here; changes propagate everywhere
+ *  through CSS custom properties.
+ *
+ *  In Tailwind v4, this @theme block replaces tailwind.config.js.
+ *  Every token below becomes a Tailwind utility automatically:
+ *    --color-glow-strong  →  text-glow-strong / bg-glow-strong
+ *    --font-display       →  font-display
+ *  ============================================================
+ */
+
+@theme {
+  /* --- Brand accent colours --- */
+  --color-glow:           #81c7ff;
+  --color-glow-strong:    #9fd8ff;
+  --color-glow-soft:      rgba(129, 199, 255, 0.2);
+  --color-solar:          #f6a04d;
+  --color-ice:            #ecf6ff;
+  --color-alert:          #ff8a7a;
+
+  /* --- Background surfaces --- */
+  --color-space:          #07111d;
   --color-space-elevated: #0f1a2c;
-  --color-glow: #81c7ff;
-  --color-glow-strong: #9fd8ff;
-  --color-glow-soft: rgba(129, 199, 255, 0.2);
-  --color-solar: #f6a04d;
-  --color-ice: #ecf6ff;
-  --color-muted: #9bb0c7;
-  --color-panel: rgba(255, 255, 255, 0.06);
-  --color-panel-soft: rgba(255, 255, 255, 0.04);
-  --color-panel-strong: linear-gradient(160deg, rgba(14, 26, 55, 0.92), rgba(7, 11, 21, 0.96));
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-strong: rgba(255, 255, 255, 0.2);
-  --color-shadow: rgba(3, 8, 21, 0.45);
-  --color-alert: #ff8a7a;
-  --color-text-strong: #ecf6ff;
-  --color-text-muted: #b1c4d7;
-  --color-text-faint: #7f95ac;
+  --color-panel:          rgba(255, 255, 255, 0.06);
+  --color-panel-soft:     rgba(255, 255, 255, 0.04);
+
+  /* --- Text --- */
+  --color-text-strong:    #ecf6ff;
+  --color-text-muted:     #b1c4d7;
+  --color-text-faint:     #7f95ac;
+  --color-muted:          #9bb0c7;
+
+  /* --- Borders & shadows --- */
+  --color-border:         rgba(255, 255, 255, 0.1);
+  --color-border-strong:  rgba(255, 255, 255, 0.2);
+  --color-shadow:         rgba(3, 8, 21, 0.45);
+
+  /* --- Typography --- */
   --font-display: "Space Grotesk", "Segoe UI", sans-serif;
-  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-body:    "Inter", "Segoe UI", sans-serif;
 }
 
-:root[data-theme='light'] {
-  --color-space: #edf3fb;
-  --color-space-elevated: #ffffff;
-  --color-glow: #0d5ab9;
-  --color-glow-strong: #246bca;
-  --color-glow-soft: rgba(13, 90, 185, 0.12);
-  --color-solar: #d86d1f;
-  --color-ice: #122033;
-  --color-muted: #55667c;
-  --color-panel: rgba(255, 255, 255, 0.88);
-  --color-panel-soft: rgba(255, 255, 255, 0.7);
-  --color-panel-strong: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 246, 255, 0.94));
-  --color-border: rgba(10, 32, 61, 0.09);
-  --color-border-strong: rgba(10, 32, 61, 0.2);
-  --color-shadow: rgba(25, 57, 94, 0.12);
-  --color-alert: #cb5039;
-  --color-text-strong: #102036;
-  --color-text-muted: #53657b;
-  --color-text-faint: #75859a;
+/*
+ * Gradient surfaces — these are multi-stop gradients, not plain
+ * colours, so they live here rather than in @theme.
+ */
+:root {
+  --color-panel-strong: linear-gradient(160deg, rgba(14, 26, 55, 0.92), rgba(7, 11, 21, 0.96));
 }
+
+/*
+ * Light theme overrides — only values that differ from dark.
+ * All other tokens inherit their @theme defaults above.
+ */
+:root[data-theme='light'] {
+  --color-space:          #edf3fb;
+  --color-space-elevated: #ffffff;
+  --color-glow:           #0d5ab9;
+  --color-glow-strong:    #246bca;
+  --color-glow-soft:      rgba(13, 90, 185, 0.12);
+  --color-solar:          #d86d1f;
+  --color-ice:            #122033;
+  --color-panel:          rgba(255, 255, 255, 0.88);
+  --color-panel-soft:     rgba(255, 255, 255, 0.7);
+  --color-panel-strong:   linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 246, 255, 0.94));
+  --color-border:         rgba(10, 32, 61, 0.09);
+  --color-border-strong:  rgba(10, 32, 61, 0.2);
+  --color-shadow:         rgba(25, 57, 94, 0.12);
+  --color-alert:          #cb5039;
+  --color-text-strong:    #102036;
+  --color-text-muted:     #53657b;
+  --color-text-faint:     #75859a;
+  --color-muted:          #55667c;
+}
+
+/* ============================================================
+ *  Global resets
+ * ============================================================ */
 
 * {
   box-sizing: border-box;

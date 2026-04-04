@@ -34,7 +34,7 @@ export const LabPageContent = (): ReactElement => {
   return (
     <div className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Build Lab</p>
+        <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Build Lab</p>
         <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
           The engineering notebook behind CosmoView.
         </h2>
@@ -60,7 +60,7 @@ export const LabPageContent = (): ReactElement => {
             key={note.title}
             className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]"
           >
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">{note.title}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">{note.title}</p>
             <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">{note.body}</p>
           </article>
         ))}
@@ -68,7 +68,7 @@ export const LabPageContent = (): ReactElement => {
 
       <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
         <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Live backend catalog</p>
+          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Live backend catalog</p>
           <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
             Endpoint explorer
           </h3>
@@ -117,7 +117,7 @@ export const LabPageContent = (): ReactElement => {
 
         <div className="space-y-4">
           <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Request path</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Request path</p>
             <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
               NASA -> Express -> React
             </h3>
@@ -130,7 +130,7 @@ export const LabPageContent = (): ReactElement => {
           </article>
 
           <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Why this structure</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Why this structure</p>
             <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--color-text-muted)]">
               <p>Backend secrets stay server-side and NASA quirks are isolated from the UI.</p>
               <p>Frontend routes stay focused on experience design instead of raw API plumbing.</p>
@@ -139,7 +139,7 @@ export const LabPageContent = (): ReactElement => {
           </article>
 
           <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Runtime context</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Runtime context</p>
             <div className="mt-4 grid gap-3">
               <div className="rounded-[1.25rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
                 <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-text-faint)]">Environment</p>

@@ -14,7 +14,7 @@ export const RoutePlaceholder = ({
   return (
     <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
       <div className="rounded-[2rem] border border-white/10 bg-white/6 p-8 shadow-[0_24px_80px_rgba(3,8,21,0.45)] backdrop-blur">
-        <p className="mb-4 text-xs uppercase tracking-[0.38em] text-[var(--color-glow)]">{eyebrow}</p>
+        <p className="mb-4 text-xs font-bold uppercase tracking-[0.38em] text-[var(--color-glow)]">{eyebrow}</p>
         <h2 className="max-w-2xl font-[var(--font-display)] text-4xl tracking-[-0.06em] text-white sm:text-5xl">
           {title}
         </h2>

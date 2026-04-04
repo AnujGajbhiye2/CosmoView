@@ -27,7 +27,7 @@ export const LibraryPage = (): ReactElement => {
   return (
     <div className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Image Library</p>
+        <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Image Library</p>
         <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
           Search NASA's archive and turn image discovery into a guided exploration workflow.
         </h2>
@@ -40,7 +40,7 @@ export const LibraryPage = (): ReactElement => {
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
         <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
           <label className="block">
-            <span className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Search NASA imagery</span>
+            <span className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Search NASA imagery</span>
             <input
               type="search"
               value={query}
@@ -73,14 +73,21 @@ export const LibraryPage = (): ReactElement => {
       </section>
 
       <ErrorBoundary
-        fallback={
+        renderFallback={(retry) => (
           <section className="rounded-[2rem] border border-[var(--color-alert)]/20 bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-alert)]">Archive unavailable</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-alert)]">Archive unavailable</p>
             <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
               The NASA image library request failed. Adjust the query or confirm the backend is responding.
             </p>
+            <button
+              type="button"
+              onClick={retry}
+              className="mt-5 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+            >
+              Retry
+            </button>
           </section>
-        }
+        )}
       >
         <Suspense fallback={<PanelSkeleton className="min-h-[46rem]" />}>
           <LibrarySearchExperience key={`${activeQuery}:${page}`} query={activeQuery} page={page} />

@@ -2,7 +2,8 @@ import type { ErrorInfo, PropsWithChildren, ReactNode } from 'react';
 import { Component } from 'react';
 
 interface ErrorBoundaryProps extends PropsWithChildren {
-  fallback: ReactNode;
+  fallback?: ReactNode;
+  renderFallback?: (retry: () => void) => ReactNode;
 }
 
 interface ErrorBoundaryState {
@@ -24,7 +25,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   public render(): ReactNode {
     if (this.state.hasError) {
-      return this.props.fallback;
+      const retry = (): void => this.setState({ hasError: false });
+      if (this.props.renderFallback) {
+        return this.props.renderFallback(retry);
+      }
+      return this.props.fallback ?? null;
     }
 
     return this.props.children;

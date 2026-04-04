@@ -21,7 +21,7 @@ export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperience
   if (data.items.length === 0) {
     return (
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">No matching images</p>
+        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">No matching images</p>
         <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
           The archive did not return results for "{query}" on page {page}.
         </h3>
@@ -38,7 +38,7 @@ export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperience
         <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Search results</p>
+              <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Search results</p>
               <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
                 {data.totalHits.toLocaleString('en-US')} images for "{query}"
               </h3>
@@ -65,7 +65,7 @@ export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperience
                 }`}
               >
                 {item.previewImageUrl ? (
-                  <img src={item.previewImageUrl} alt={item.title} className="h-52 w-full object-cover" />
+                  <img src={item.previewImageUrl} alt={item.title} loading="lazy" decoding="async" className="h-52 w-full object-cover" />
                 ) : (
                   <div className="flex h-52 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
                     Preview unavailable
@@ -87,14 +87,14 @@ export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperience
       <div className="space-y-4">
         <article className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
           {selectedItem?.originalImageUrl ? (
-            <img src={selectedItem.originalImageUrl} alt={selectedItem.title} className="h-72 w-full object-cover" />
+            <img src={selectedItem.originalImageUrl} alt={selectedItem.title} loading="eager" decoding="async" className="h-72 w-full object-cover" />
           ) : (
             <div className="flex h-72 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
               Select an image to inspect it in detail
             </div>
           )}
           <div className="p-6">
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Selected image</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Selected image</p>
             <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">
               {selectedItem?.title ?? 'Awaiting selection'}
             </h3>

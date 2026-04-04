@@ -17,7 +17,7 @@ export const ThemeToggle = (): ReactElement => {
       data-theme={theme}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
-      <span className="text-xs uppercase tracking-[0.28em]">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+      <span className="text-xs font-bold uppercase tracking-[0.28em]">{theme === 'dark' ? 'Dark' : 'Light'}</span>
       <span className="flex h-6 w-11 items-center rounded-full bg-black/25 p-1 data-[theme=light]:bg-slate-300/80" data-theme={theme}>
         <span
           className={cn(

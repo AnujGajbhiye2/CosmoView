@@ -23,7 +23,7 @@ export const MediaFrame = ({
 
   return (
     <div className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
-      <img src={imageUrl} alt={title} className="h-full max-h-[44rem] w-full object-cover" />
+      <img src={imageUrl} alt={title} loading="eager" decoding="async" className="h-full max-h-[44rem] w-full object-cover" />
     </div>
   );
 };

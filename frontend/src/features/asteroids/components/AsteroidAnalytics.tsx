@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
+import { InfoTooltip } from '@/components/ui/InfoTooltip';
 import { useAsteroidFeed } from '../hooks/useAsteroidFeed';
 
 interface AsteroidAnalyticsProps {
@@ -60,22 +61,22 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
     <section className="space-y-4">
       <div className="grid gap-4 lg:grid-cols-4">
         <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Tracked objects</p>
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Tracked objects</p>
           <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--color-text-strong)]">{data.counts.total}</p>
         </article>
         <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Hazardous objects</p>
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Hazardous objects</p>
           <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--color-alert)]">{hazardousCount}</p>
         </article>
         <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Fastest object</p>
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Fastest object</p>
           <p className="mt-3 text-lg font-semibold text-[var(--color-text-strong)]">{fastest?.name ?? 'Unavailable'}</p>
           <p className="mt-2 text-sm text-[var(--color-text-muted)]">
             {fastest ? `${formatNumber(fastest.velocityKph)} km/h` : 'No data'}
           </p>
         </article>
         <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Closest pass</p>
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Closest pass</p>
           <p className="mt-3 text-lg font-semibold text-[var(--color-text-strong)]">{closest?.name ?? 'Unavailable'}</p>
           <p className="mt-2 text-sm text-[var(--color-text-muted)]">
             {closest ? `${formatNumber(closest.missDistanceKm)} km` : 'No data'}
@@ -87,7 +88,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
         <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Velocity profile</p>
+              <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Velocity profile</p>
               <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
                 Relative speed across the watch window
               </h3>
@@ -129,7 +130,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
         </article>
 
         <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Risk matrix</p>
+          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Risk matrix</p>
           <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
             Size vs. miss distance
           </h3>
@@ -197,7 +198,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
       <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Inspection table</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Inspection table</p>
             <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
               Raw close-approach view
             </h3>
@@ -212,9 +213,24 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
               <tr className="text-left text-xs uppercase tracking-[0.22em] text-[var(--color-text-faint)]">
                 <th className="px-4">Object</th>
                 <th className="px-4">Date</th>
-                <th className="px-4">Velocity</th>
-                <th className="px-4">Miss distance</th>
-                <th className="px-4">Diameter max</th>
+                <th className="px-4">
+                  <span className="inline-flex items-center">
+                    Velocity
+                    <InfoTooltip text="Speed of the asteroid relative to Earth at its closest approach point, in kilometres per hour." />
+                  </span>
+                </th>
+                <th className="px-4">
+                  <span className="inline-flex items-center">
+                    Miss distance
+                    <InfoTooltip text="How close the asteroid's orbit passes to Earth's centre. Smaller = closer. The Moon is ~384,000 km away for reference." />
+                  </span>
+                </th>
+                <th className="px-4">
+                  <span className="inline-flex items-center">
+                    Diameter max
+                    <InfoTooltip text="Upper bound of the estimated physical size of the asteroid. NASA uses reflectance modelling to derive this range." />
+                  </span>
+                </th>
               </tr>
             </thead>
             <tbody>

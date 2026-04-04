@@ -18,7 +18,7 @@ export const ApodExplorer = ({ date }: ApodExplorerProps): ReactElement => {
         fallbackLabel="This APOD entry does not include a displayable image. The metadata is still available in the side panel."
       />
       <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Astronomy Picture of the Day</p>
+        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Astronomy Picture of the Day</p>
         <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
           {data.title}
         </h2>
@@ -26,11 +26,11 @@ export const ApodExplorer = ({ date }: ApodExplorerProps): ReactElement => {
         <p className="mt-5 text-base leading-7 text-[var(--color-text-muted)]">{data.explanation}</p>
         <dl className="mt-6 grid gap-4 sm:grid-cols-2">
           <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
-            <dt className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Media type</dt>
+            <dt className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Media type</dt>
             <dd className="mt-2 text-lg font-medium text-[var(--color-text-strong)]">{data.mediaType}</dd>
           </div>
           <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
-            <dt className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Copyright</dt>
+            <dt className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Copyright</dt>
             <dd className="mt-2 text-lg font-medium text-[var(--color-text-strong)]">{data.copyright ?? 'NASA / Public domain'}</dd>
           </div>
         </dl>

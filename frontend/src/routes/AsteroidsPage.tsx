@@ -33,7 +33,7 @@ export const AsteroidsPage = (): ReactElement => {
   return (
     <div className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Asteroid Analytics</p>
+        <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Asteroid Analytics</p>
         <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
           Inspect velocity, scale, and risk across the current near-Earth object watch window.
         </h2>
@@ -62,7 +62,7 @@ export const AsteroidsPage = (): ReactElement => {
         </div>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <label className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
-            <span className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Start date</span>
+            <span className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">Start date</span>
             <input
               type="date"
               value={startDate}
@@ -71,7 +71,7 @@ export const AsteroidsPage = (): ReactElement => {
             />
           </label>
           <label className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
-            <span className="text-xs uppercase tracking-[0.28em] text-[var(--color-text-faint)]">End date</span>
+            <span className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--color-text-faint)]">End date</span>
             <input
               type="date"
               value={endDate}
@@ -86,14 +86,21 @@ export const AsteroidsPage = (): ReactElement => {
       </section>
 
       <ErrorBoundary
-        fallback={
+        renderFallback={(retry) => (
           <section className="rounded-[2rem] border border-[var(--color-alert)]/20 bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-alert)]">Asteroid feed unavailable</p>
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-alert)]">Asteroid feed unavailable</p>
             <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
               The selected asteroid window could not be loaded. Try a tighter date range or verify that the backend is responding.
             </p>
+            <button
+              type="button"
+              onClick={retry}
+              className="mt-5 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+            >
+              Retry
+            </button>
           </section>
-        }
+        )}
       >
         <Suspense fallback={<PanelSkeleton className="min-h-[42rem]" />}>
           <AsteroidAnalytics key={`${startDate}:${endDate}`} startDate={startDate} endDate={endDate} />
