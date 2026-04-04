@@ -9,7 +9,6 @@ export const useMissionControlData = () => {
   const now = new Date();
   const asteroidStartDate = toIsoDate(now);
   const asteroidEndDate = toIsoDate(addDays(now, 2));
-  const epicDate = toIsoDate(addDays(now, -3));
 
   const [apodQuery, asteroidQuery, epicQuery, libraryQuery] = useSuspenseQueries({
     queries: [
@@ -22,8 +21,8 @@ export const useMissionControlData = () => {
         queryFn: () => asteroidsApi.getFeed(asteroidStartDate, asteroidEndDate)
       },
       {
-        queryKey: ['epic', epicDate, 'mission-control'],
-        queryFn: () => epicApi.getNaturalImages(epicDate)
+        queryKey: ['epic', 'latest', 'mission-control'],
+        queryFn: () => epicApi.getLatestNaturalImages()
       },
       {
         queryKey: ['library', 'nebula', 1, 'mission-control'],
@@ -40,7 +39,6 @@ export const useMissionControlData = () => {
     asteroidRange: {
       startDate: asteroidStartDate,
       endDate: asteroidEndDate
-    },
-    epicDate
+    }
   };
 };

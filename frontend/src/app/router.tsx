@@ -7,6 +7,7 @@ import { RootPage } from '@/routes/RootPage';
 import { ApodPage } from '@/routes/ApodPage';
 import { AsteroidsPage } from '@/routes/AsteroidsPage';
 import { EarthPage } from '@/routes/EarthPage';
+import { LabPage } from '@/routes/LabPage';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -49,12 +50,19 @@ const libraryRoute = createRoute({
   component: LibraryPage
 });
 
+const labRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/lab',
+  component: LabPage
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   apodRoute,
   asteroidsRoute,
   earthRoute,
-  libraryRoute
+  libraryRoute,
+  labRoute
 ]);
 
 const router = createRouter({

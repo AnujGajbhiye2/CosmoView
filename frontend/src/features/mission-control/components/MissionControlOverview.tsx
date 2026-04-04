@@ -10,7 +10,7 @@ const formatCompactDate = (value: string): string =>
   }).format(new Date(`${value}T00:00:00Z`));
 
 export const MissionControlOverview = (): ReactElement => {
-  const { apod, asteroidFeed, epicImages, libraryResults, asteroidRange, epicDate } = useMissionControlData();
+  const { apod, asteroidFeed, epicImages, libraryResults, asteroidRange } = useMissionControlData();
 
   const hazardousCount = asteroidFeed.asteroids.filter((asteroid) => asteroid.hazardous).length;
   const averageVelocity = asteroidFeed.asteroids.length
@@ -117,7 +117,7 @@ export const MissionControlOverview = (): ReactElement => {
         <div className="p-6">
           <p className="text-xs uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">EPIC preview</p>
           <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">
-            Earth observation on {formatCompactDate(epicDate)}
+            Earth observation on {featuredEpic ? formatCompactDate(featuredEpic.date.slice(0, 10)) : '—'}
           </h3>
           <p className="mt-3 line-clamp-4 text-sm leading-6 text-[var(--color-text-muted)]">
             {featuredEpic?.caption ?? 'A curated Earth view will appear here once EPIC imagery is available for the selected day.'}

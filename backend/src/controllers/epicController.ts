@@ -16,3 +16,16 @@ export const getEpicNaturalImages = async (request: Request, response: Response)
     }
   });
 };
+
+export const getEpicLatestNaturalImages = async (_request: Request, response: Response): Promise<void> => {
+  const result = await services.epic.getLatestNaturalImages();
+
+  response.json({
+    data: result.data,
+    meta: {
+      requestId: response.locals.requestId,
+      cached: result.cached,
+      source: 'nasa-epic'
+    }
+  });
+};

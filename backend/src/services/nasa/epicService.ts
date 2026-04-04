@@ -43,4 +43,28 @@ export class EpicService {
 
     return { data: dto, cached: false };
   }
+
+  public async getLatestNaturalImages(): Promise<CachedServiceResult<EpicImageDto[]>> {
+    const cacheKey = 'epic:latest';
+    const cached = this.cache.get<EpicImageDto[]>(cacheKey);
+
+    if (cached) {
+      return { data: cached, cached: true };
+    }
+
+    const response = await this.client.get('/api/natural');
+    const payload = epicCollectionSchema.parse(response.data);
+    const dto: EpicImageDto[] = payload.map((item) => ({
+      identifier: item.identifier,
+      caption: item.caption,
+      image: item.image,
+      date: item.date,
+      centroidCoordinates: item.centroid_coordinates ?? null,
+      archiveUrl: createArchiveUrl(item.date, item.image)
+    }));
+
+    this.cache.set(cacheKey, dto, this.ttlMs);
+
+    return { data: dto, cached: false };
+  }
 }

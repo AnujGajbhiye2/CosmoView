@@ -7,7 +7,8 @@ const navigationItems = [
   { href: '/apod', label: 'APOD' },
   { href: '/asteroids', label: 'Asteroids' },
   { href: '/earth', label: 'Earth' },
-  { href: '/library', label: 'Library' }
+  { href: '/library', label: 'Library' },
+  { href: '/lab', label: 'Lab' }
 ] as const;
 
 export const AppShell = ({ children }: PropsWithChildren): ReactElement => {

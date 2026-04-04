@@ -8,5 +8,11 @@ export const epicApi = {
     });
 
     return data.data;
+  },
+
+  getLatestNaturalImages: async (): Promise<EpicImageDto[]> => {
+    const { data } = await apiClient.get<ApiSuccessResponse<EpicImageDto[]>>('/api/v1/epic/natural/latest');
+
+    return data.data;
   }
 };

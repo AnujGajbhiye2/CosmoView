@@ -97,6 +97,19 @@ const endpoints: DevEndpointsDto['endpoints'] = [
         path: '/api/v1/epic/natural?date=2025-01-01'
       }
     ]
+  },
+  {
+    name: 'EPIC Latest Natural Imagery',
+    description: 'Returns normalized EPIC natural images for the most recently available date.',
+    method: 'GET',
+    path: '/api/v1/epic/natural/latest',
+    variations: [
+      {
+        description: 'Fetch the most recent EPIC natural imagery.',
+        method: 'GET',
+        path: '/api/v1/epic/natural/latest'
+      }
+    ]
   }
 ];
 
