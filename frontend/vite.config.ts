@@ -16,7 +16,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       '~components': path.resolve(__dirname, './src/components'),
       '~features': path.resolve(__dirname, './src/features'),
-      '~types': path.resolve(__dirname, './src/types')
+      '~types': path.resolve(__dirname, './src/types'),
+      react: path.resolve(__dirname, './node_modules/react'),
+      'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime.js'),
+      'react/jsx-dev-runtime': path.resolve(__dirname, './node_modules/react/jsx-dev-runtime.js'),
+      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+      'react-dom/client': path.resolve(__dirname, './node_modules/react-dom/client.js')
     }
   },
   server: {

@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { SpaceLoader } from '@/components/feedback/SpaceLoader';
 import { useDevEndpoints } from '../hooks/useDevEndpoints';
 
 const architectureNotes = [
@@ -34,11 +35,11 @@ export const LabPageContent = (): ReactElement => {
   return (
     <div className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Build Lab</p>
-        <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
+        <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Build Lab</p>
+        <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
           The engineering notebook behind CosmoView.
         </h2>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--color-text-muted)]">
+        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--color-text-faint)]">
           This page explains the stack, architecture, backend contract, and the route-level API surface. It is designed
           for reviewers who want the nerdy implementation story without digging through the whole repository first.
         </p>
@@ -64,6 +65,47 @@ export const LabPageContent = (): ReactElement => {
             <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">{note.body}</p>
           </article>
         ))}
+      </section>
+
+      <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Library search notes</p>
+        <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
+          Search interaction improvements
+        </h3>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-text-faint)]">Input handling</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
+              Library queries now commit after a short debounce so typing stays responsive instead of triggering a new fetch
+              on every effective keystroke.
+            </p>
+          </div>
+          <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-text-faint)]">Result flow</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
+              Results now live inside a contained scroll pane and append with infinite loading, while the selected detail
+              panel remains stable on the right.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Loader preview</p>
+        <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
+          Shared loading state
+        </h3>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--color-text-muted)]">
+          This is the same inline loader used by Suspense fallbacks on the data-heavy routes, shown here as a static preview
+          so you can evaluate the motion and composition without forcing repeated reloads.
+        </p>
+        <div className="mt-6">
+          <SpaceLoader
+            className="min-h-[20rem]"
+            title="Contacting mission control"
+            message="Fetching the latest NASA telemetry and preparing your next view."
+          />
+        </div>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
@@ -119,7 +161,7 @@ export const LabPageContent = (): ReactElement => {
           <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
             <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Request path</p>
             <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
-              NASA -> Express -> React
+              {"NASA -> Express -> React"}
             </h3>
             <ol className="mt-6 space-y-3 text-sm leading-6 text-[var(--color-text-muted)]">
               <li>1. The React route requests data through a feature-specific API client.</li>

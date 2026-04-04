@@ -33,11 +33,11 @@ export const AsteroidsPage = (): ReactElement => {
   return (
     <div className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Asteroid Analytics</p>
-        <h2 className="mt-4 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
+        <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Asteroid Analytics</p>
+        <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-5xl">
           Inspect velocity, scale, and risk across the current near-Earth object watch window.
         </h2>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--color-text-muted)]">
+        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--color-text-faint)]">
           The backend constrains the date range to NASA's seven-day feed limit. This view turns that feed into a readable
           analytics surface with summary metrics, comparative bars, and an inspection table.
         </p>
@@ -48,14 +48,14 @@ export const AsteroidsPage = (): ReactElement => {
           <button
             type="button"
             onClick={() => handleShift(-1)}
-            className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
           >
             Shift back
           </button>
           <button
             type="button"
             onClick={() => handleShift(1)}
-            className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
           >
             Shift forward
           </button>

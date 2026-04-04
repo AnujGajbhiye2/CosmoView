@@ -1,14 +1,12 @@
 import type { ReactElement } from 'react';
-import { PanelSkeleton } from '@/components/feedback/PanelSkeleton';
+import { SpaceLoader } from '@/components/feedback/SpaceLoader';
 
 export const MissionControlFallback = (): ReactElement => {
   return (
-    <section className="grid gap-4 lg:grid-cols-12">
-      <PanelSkeleton className="lg:col-span-8" />
-      <PanelSkeleton className="lg:col-span-4" />
-      <PanelSkeleton className="lg:col-span-4" />
-      <PanelSkeleton className="lg:col-span-4" />
-      <PanelSkeleton className="lg:col-span-4" />
-    </section>
+    <SpaceLoader
+      className="min-h-[34rem]"
+      title="Synchronizing mission control"
+      message="Collecting APOD imagery, asteroid telemetry, Earth observation, and archive search results for the main dashboard."
+    />
   );
 };

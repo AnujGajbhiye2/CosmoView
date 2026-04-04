@@ -1,32 +1,70 @@
 import type { ReactElement } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLibrarySearch } from '../hooks/useLibrarySearch';
 import { ExplorerCopilot } from './ExplorerCopilot';
+import type { ImageSearchDto } from '~types/api';
 
 interface LibrarySearchExperienceProps {
-  page: number;
   query: string;
 }
 
-export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperienceProps): ReactElement => {
-  const { data } = useLibrarySearch(query, page);
-  const [selectedId, setSelectedId] = useState<string | null>(data.items[0]?.nasaId ?? null);
+export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps): ReactElement => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useLibrarySearch(query);
+  const [selectedId, setSelectedId] = useState<string | null>(data.pages[0]?.items[0]?.nasaId ?? null);
+  const resultsPaneRef = useRef<HTMLDivElement | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  const aggregatedResults = useMemo<ImageSearchDto>(() => {
+    const pages = data.pages;
+    const lastPage = pages[pages.length - 1];
+
+    return {
+      items: pages.flatMap((page) => page.items),
+      page: lastPage?.page ?? 1,
+      pageSize: pages.reduce((total, page) => total + page.pageSize, 0),
+      totalHits: pages[0]?.totalHits ?? 0,
+      hasNextPage: lastPage?.hasNextPage ?? false
+    };
+  }, [data.pages]);
 
   useEffect(() => {
-    setSelectedId(data.items[0]?.nasaId ?? null);
-  }, [data.items]);
+    const node = loadMoreRef.current;
 
-  const selectedItem = data.items.find((item) => item.nasaId === selectedId) ?? data.items[0] ?? null;
+    if (!node || !hasNextPage || isFetchingNextPage) {
+      return;
+    }
 
-  if (data.items.length === 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          void fetchNextPage();
+        }
+      },
+      {
+        root: resultsPaneRef.current,
+        rootMargin: '180px 0px'
+      }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  const selectedItem =
+    aggregatedResults.items.find((item) => item.nasaId === selectedId) ?? aggregatedResults.items[0] ?? null;
+
+  if (aggregatedResults.items.length === 0) {
     return (
       <section className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
         <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">No matching images</p>
         <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
-          The archive did not return results for "{query}" on page {page}.
+          The archive did not return results for "{query}".
         </h3>
         <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--color-text-muted)]">
-          Try a broader search term or move back to an earlier page to recover a stronger result set.
+          Try a broader search term to recover a stronger result set.
         </p>
       </section>
     );
@@ -40,48 +78,70 @@ export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperience
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Search results</p>
               <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
-                {data.totalHits.toLocaleString('en-US')} images for "{query}"
+                {aggregatedResults.totalHits.toLocaleString('en-US')} images for "{query}"
               </h3>
             </div>
             <div className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-muted)]">
-              Page {data.page}
+              {aggregatedResults.items.length.toLocaleString('en-US')} loaded
             </div>
           </div>
         </article>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {data.items.map((item) => {
-            const isActive = item.nasaId === selectedItem?.nasaId;
+        <article className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4 shadow-[0_24px_80px_var(--color-shadow)]">
+          <div ref={resultsPaneRef} className="max-h-[58rem] overflow-y-auto pr-2">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {aggregatedResults.items.map((item) => {
+                const isActive = item.nasaId === selectedItem?.nasaId;
 
-            return (
-              <button
-                key={item.nasaId}
-                type="button"
-                onClick={() => setSelectedId(item.nasaId)}
-                className={`overflow-hidden rounded-[1.75rem] border text-left shadow-[0_24px_80px_var(--color-shadow)] transition ${
-                  isActive
-                    ? 'border-[var(--color-glow-strong)] bg-[var(--color-panel)]'
-                    : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
-                }`}
-              >
-                {item.previewImageUrl ? (
-                  <img src={item.previewImageUrl} alt={item.title} loading="lazy" decoding="async" className="h-52 w-full object-cover" />
-                ) : (
-                  <div className="flex h-52 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
-                    Preview unavailable
-                  </div>
-                )}
-                <div className="p-5">
-                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-text-faint)]">{item.dateCreated.slice(0, 10)}</p>
-                  <h4 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-[var(--color-text-strong)]">{item.title}</h4>
-                  <p className="mt-3 line-clamp-4 text-sm leading-6 text-[var(--color-text-muted)]">
-                    {item.description ?? 'This archive item does not include a description.'}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
-        </div>
+                return (
+                  <button
+                    key={item.nasaId}
+                    type="button"
+                    onClick={() => setSelectedId(item.nasaId)}
+                    className={`overflow-hidden rounded-[1.75rem] border text-left shadow-[0_24px_80px_var(--color-shadow)] transition ${
+                      isActive
+                        ? 'border-[var(--color-glow-strong)] bg-[var(--color-panel)]'
+                        : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
+                    }`}
+                  >
+                    {item.previewImageUrl ? (
+                      <img src={item.previewImageUrl} alt={item.title} loading="lazy" decoding="async" className="h-52 w-full object-cover" />
+                    ) : (
+                      <div className="flex h-52 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
+                        Preview unavailable
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-text-faint)]">{item.dateCreated.slice(0, 10)}</p>
+                      <h4 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-[var(--color-text-strong)]">{item.title}</h4>
+                      <p className="mt-3 line-clamp-4 text-sm leading-6 text-[var(--color-text-muted)]">
+                        {item.description ?? 'This archive item does not include a description.'}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div ref={loadMoreRef} className="flex flex-col items-center gap-4 px-2 py-6">
+              {isFetchingNextPage ? (
+                <p className="text-sm text-[var(--color-text-muted)]">Loading more archive results...</p>
+              ) : null}
+              {aggregatedResults.hasNextPage ? (
+                <button
+                  type="button"
+                  onClick={() => void fetchNextPage()}
+                  disabled={isFetchingNextPage}
+                  className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Load more results
+                </button>
+              ) : (
+                <p className="text-sm text-[var(--color-text-faint)]">End of archive results for this search.</p>
+              )}
+            </div>
+          </div>
+        </article>
       </div>
 
       <div className="space-y-4">
@@ -116,7 +176,7 @@ export const LibrarySearchExperience = ({ query, page }: LibrarySearchExperience
           </div>
         </article>
 
-        <ExplorerCopilot query={query} results={data} selectedItem={selectedItem} />
+        <ExplorerCopilot query={query} results={aggregatedResults} selectedItem={selectedItem} />
       </div>
     </section>
   );

@@ -25,8 +25,8 @@
   /* --- Background surfaces --- */
   --color-space:          #07111d;
   --color-space-elevated: #0f1a2c;
-  --color-panel:          rgba(255, 255, 255, 0.06);
-  --color-panel-soft:     rgba(255, 255, 255, 0.04);
+  --color-panel:          rgba(255, 255, 255, 0.07);
+  --color-panel-soft:     rgba(255, 255, 255, 0.08);
 
   /* --- Text --- */
   --color-text-strong:    #ecf6ff;
@@ -35,8 +35,8 @@
   --color-muted:          #9bb0c7;
 
   /* --- Borders & shadows --- */
-  --color-border:         rgba(255, 255, 255, 0.1);
-  --color-border-strong:  rgba(255, 255, 255, 0.2);
+  --color-border:         rgba(255, 255, 255, 0.22);
+  --color-border-strong:  rgba(255, 255, 255, 0.34);
   --color-shadow:         rgba(3, 8, 21, 0.45);
 
   /* --- Typography --- */
@@ -64,11 +64,11 @@
   --color-glow-soft:      rgba(13, 90, 185, 0.12);
   --color-solar:          #d86d1f;
   --color-ice:            #122033;
-  --color-panel:          rgba(255, 255, 255, 0.88);
-  --color-panel-soft:     rgba(255, 255, 255, 0.7);
+  --color-panel:          rgba(255, 255, 255, 0.92);
+  --color-panel-soft:     rgba(255, 255, 255, 0.82);
   --color-panel-strong:   linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 246, 255, 0.94));
-  --color-border:         rgba(10, 32, 61, 0.09);
-  --color-border-strong:  rgba(10, 32, 61, 0.2);
+  --color-border:         rgba(10, 32, 61, 0.18);
+  --color-border-strong:  rgba(10, 32, 61, 0.3);
   --color-shadow:         rgba(25, 57, 94, 0.12);
   --color-alert:          #cb5039;
   --color-text-strong:    #102036;

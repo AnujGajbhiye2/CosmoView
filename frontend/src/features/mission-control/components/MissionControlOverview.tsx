@@ -28,11 +28,11 @@ export const MissionControlOverview = (): ReactElement => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--color-glow-soft),_transparent_34%)] opacity-80" />
         <div className="relative flex h-full flex-col justify-between gap-6">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--color-glow-strong)]">Live overview</p>
-            <h2 className="mt-4 max-w-3xl font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-6xl">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Live overview</p>
+            <h2 className="mt-5 max-w-3xl font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)] sm:text-6xl">
               Curated access to NASA's imagery, asteroid telemetry, and Earth observation streams.
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--color-text-muted)] sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--color-text-faint)] sm:text-lg">
               Mission Control turns the backend into a guided cockpit: one surface for visual discovery, one for
               analytical risk, and one for deep exploration.
             </p>
