@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArchiveIcon, ImageIcon, MediaUnavailableIcon, NoResultsIcon, SearchIcon } from '@/components/ui/icons';
 import { useLibrarySearch } from '../hooks/useLibrarySearch';
 import { ExplorerCopilot } from './ExplorerCopilot';
 import type { ImageSearchDto } from '~types/api';
@@ -59,7 +60,10 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
   if (aggregatedResults.items.length === 0) {
     return (
       <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">No matching images</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <NoResultsIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>No matching images</p>
+        </div>
         <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
           The archive did not return results for "{query}".
         </h3>
@@ -76,7 +80,10 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
         <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Search results</p>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+                <SearchIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <p>Search results</p>
+              </div>
               <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
                 {aggregatedResults.totalHits.toLocaleString('en-US')} images for "{query}"
               </h3>
@@ -88,7 +95,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
         </article>
 
         <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4 shadow-[0_24px_80px_var(--color-shadow)]">
-          <div ref={resultsPaneRef} className="max-h-[58rem] overflow-y-auto pr-2">
+          <div ref={resultsPaneRef} className="max-h-[73rem] overflow-y-auto pr-2">
             <div className="grid gap-4 sm:grid-cols-2">
               {aggregatedResults.items.map((item) => {
                 const isActive = item.nasaId === selectedItem?.nasaId;
@@ -107,8 +114,9 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
                     {item.previewImageUrl ? (
                       <img src={item.previewImageUrl} alt={item.title} loading="lazy" decoding="async" className="h-52 w-full object-cover" />
                     ) : (
-                      <div className="flex h-52 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
-                        Preview unavailable
+                      <div className="flex h-52 flex-col items-center justify-center gap-3 bg-[var(--color-panel-strong)] px-4 text-center text-sm text-[var(--color-text-faint)]">
+                        <MediaUnavailableIcon aria-hidden="true" className="h-8 w-8 text-[var(--color-glow-strong)]" />
+                        <p>Preview unavailable</p>
                       </div>
                     )}
                     <div className="p-5">
@@ -149,12 +157,16 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
           {selectedItem?.originalImageUrl ? (
             <img src={selectedItem.originalImageUrl} alt={selectedItem.title} loading="eager" decoding="async" className="h-72 w-full object-cover" />
           ) : (
-            <div className="flex h-72 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
-              Select an image to inspect it in detail
+            <div className="flex h-72 flex-col items-center justify-center gap-3 bg-[var(--color-panel-strong)] px-6 text-center text-sm text-[var(--color-text-faint)]">
+              <ImageIcon aria-hidden="true" className="h-10 w-10 text-[var(--color-glow-strong)]" />
+              <p>Select an image to inspect it in detail</p>
             </div>
           )}
           <div className="p-6">
-            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Selected image</p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+              <ArchiveIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <p>Selected image</p>
+            </div>
             <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">
               {selectedItem?.title ?? 'Awaiting selection'}
             </h3>

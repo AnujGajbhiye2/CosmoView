@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { LoadingIcon } from '@/components/ui/icons';
 
 interface SpaceLoaderProps {
   className?: string;
@@ -49,9 +50,10 @@ export const SpaceLoader = ({
               </div>
             </div>
           </div>
-          <p className="mt-5 text-[0.68rem] font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">
-            Loading transmission
-          </p>
+          <div className="mt-5 inline-flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+            <LoadingIcon aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
+            <p>Loading transmission</p>
+          </div>
           <h3 className="mt-3 font-[var(--font-display)] text-2xl tracking-[-0.04em] text-[var(--color-text-strong)] sm:text-3xl">
             {title}
           </h3>

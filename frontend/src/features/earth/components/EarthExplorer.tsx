@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
+import { NavEarthIcon } from '@/components/ui/icons';
 import { useEpic } from '../hooks/useEpic';
 
 interface EarthExplorerProps {
@@ -15,7 +16,10 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
   if (!selectedImage) {
     return (
       <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">EPIC natural imagery</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <NavEarthIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>EPIC natural imagery</p>
+        </div>
         <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
           No EPIC imagery is currently available for {date}.
         </h2>
@@ -29,7 +33,10 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
   return (
     <section className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
       <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">EPIC natural imagery</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <NavEarthIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>EPIC natural imagery</p>
+        </div>
         <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
           Earth on {date}
         </h2>
@@ -61,7 +68,10 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
       <article className="overflow-hidden rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] shadow-[0_24px_80px_var(--color-shadow)]">
         <img src={selectedImage.archiveUrl} alt={selectedImage.caption} loading="eager" decoding="async" className="h-80 w-full object-cover sm:h-[28rem]" />
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Selected frame</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+            <NavEarthIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+            <p>Selected frame</p>
+          </div>
           <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">
             {selectedImage.identifier}
           </h3>

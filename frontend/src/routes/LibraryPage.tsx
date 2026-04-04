@@ -3,6 +3,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/feedback/ErrorBoundary';
 import { PanelSkeleton } from '@/components/feedback/PanelSkeleton';
+import { ErrorIcon, RetryIcon, SearchIcon } from '@/components/ui/icons';
 import { LibrarySearchExperience } from '@/features/library/components/LibrarySearchExperience';
 
 export const LibraryPage = (): ReactElement => {
@@ -75,15 +76,19 @@ export const LibraryPage = (): ReactElement => {
               onReset={reset}
               renderFallback={(retry) => (
                 <section className="rounded-[1rem] border border-[var(--color-alert)]/20 bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-                  <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-alert)]">Archive unavailable</p>
+                  <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-alert)]">
+                    <ErrorIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+                    <p>Archive unavailable</p>
+                  </div>
                   <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
                     The NASA image library request failed. Adjust the query or confirm the backend is responding.
                   </p>
                   <button
                     type="button"
                     onClick={retry}
-                    className="mt-5 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+                    className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
                   >
+                    <RetryIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
                     Retry
                   </button>
                 </section>
@@ -97,7 +102,10 @@ export const LibraryPage = (): ReactElement => {
         </QueryErrorResetBoundary>
       ) : (
         <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Archive standby</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+            <SearchIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+            <p>Archive standby</p>
+          </div>
           <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
             Start with a search term to explore NASA imagery.
           </h3>

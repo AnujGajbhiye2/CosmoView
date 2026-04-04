@@ -1,16 +1,24 @@
 import type { PropsWithChildren, ReactElement } from 'react';
 import { useLocation } from '@tanstack/react-router';
+import {
+  NavApodIcon,
+  NavAsteroidsIcon,
+  NavEarthIcon,
+  NavHomeIcon,
+  NavLabIcon,
+  NavLibraryIcon
+} from '@/components/ui/icons';
 import { CometBackground } from './CometBackground';
 import { NavLink } from './NavLink';
 import { ThemeToggle } from './ThemeToggle';
 
 const navigationItems = [
-  { href: '/', label: 'Mission Control' },
-  { href: '/apod', label: 'APOD' },
-  { href: '/asteroids', label: 'Asteroids' },
-  { href: '/earth', label: 'Earth' },
-  { href: '/library', label: 'Library' },
-  { href: '/lab', label: 'Lab' }
+  { href: '/', icon: NavHomeIcon, label: 'Mission Control' },
+  { href: '/apod', icon: NavApodIcon, label: 'APOD' },
+  { href: '/asteroids', icon: NavAsteroidsIcon, label: 'Asteroids' },
+  { href: '/earth', icon: NavEarthIcon, label: 'Earth' },
+  { href: '/library', icon: NavLibraryIcon, label: 'Library' },
+  { href: '/lab', icon: NavLabIcon, label: 'Lab' }
 ] as const;
 
 const pageTitle = (pathname: string): string =>
@@ -42,7 +50,7 @@ export const AppShell = ({ children }: PropsWithChildren): ReactElement => {
             </div>
             <nav className="flex flex-wrap gap-2">
               {navigationItems.map((item) => (
-                <NavLink key={item.href} href={item.href} label={item.label} />
+                <NavLink key={item.href} href={item.href} icon={item.icon} label={item.label} />
               ))}
             </nav>
           </div>

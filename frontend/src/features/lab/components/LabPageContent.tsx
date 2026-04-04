@@ -1,36 +1,75 @@
-import type { ReactElement } from 'react';
+import type { ComponentType, ReactElement } from 'react';
+import type { SVGProps } from 'react';
+import { useState } from 'react';
 import { SpaceLoader } from '@/components/feedback/SpaceLoader';
+import {
+  ArchiveIcon,
+  BackendIcon,
+  CarouselNextIcon,
+  CarouselPrevIcon,
+  DataFlowIcon,
+  EndpointIcon,
+  FrontendIcon,
+  LoadingIcon,
+  SiExpress,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVite,
+  TanStackIcon,
+  AxiosIcon,
+  ZodIcon
+} from '@/components/ui/icons';
 import { useDevEndpoints } from '../hooks/useDevEndpoints';
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { color?: string; size?: number }>;
 
 const architectureNotes = [
   {
+    icon: FrontendIcon,
     title: 'Frontend',
     body: 'React 19 + Vite 8 with TanStack Router and TanStack Query. The UI is feature-organized, Suspense-driven, and consumes only the Express backend.'
   },
   {
+    icon: BackendIcon,
     title: 'Backend',
     body: 'Node.js + Express + TypeScript. NASA API responses are validated and normalized behind typed service modules so the frontend never depends on raw NASA payloads.'
   },
   {
+    icon: DataFlowIcon,
     title: 'Data flow',
     body: 'NASA Open APIs -> Express adapters -> normalized DTOs -> React Query cache -> route-level UI. This keeps secrets server-side and stabilizes the frontend contract.'
   }
 ] as const;
 
 const stackItems = [
-  'React 19',
-  'Vite 8',
-  'TypeScript',
-  'Tailwind CSS v4',
-  'TanStack Router',
-  'TanStack Query',
-  'Express',
-  'Zod',
-  'Axios'
+  { icon: SiReact, iconColor: '#61DAFB', label: 'React 19' },
+  { icon: SiVite, iconColor: '#646CFF', label: 'Vite 8' },
+  { icon: SiTypescript, iconColor: '#3178C6', label: 'TypeScript' },
+  { icon: SiTailwindcss, iconColor: '#06B6D4', label: 'Tailwind CSS v4' },
+  { icon: TanStackIcon, iconColor: '#FF6B3D', label: 'TanStack Router' },
+  { icon: TanStackIcon, iconColor: '#FF6B3D', label: 'TanStack Query' },
+  { icon: SiExpress, iconColor: '#7DD3FC', label: 'Express' },
+  { icon: ZodIcon, iconColor: '#A78BFA', label: 'Zod' },
+  { icon: AxiosIcon, iconColor: '#F97316', label: 'Axios' }
 ] as const;
 
 export const LabPageContent = (): ReactElement => {
   const { data } = useDevEndpoints();
+  const [activeEndpointIndex, setActiveEndpointIndex] = useState<number>(0);
+  const activeEndpoint = data.endpoints[activeEndpointIndex] ?? null;
+
+  const handlePreviousEndpoint = (): void => {
+    setActiveEndpointIndex((currentIndex) =>
+      currentIndex === 0 ? data.endpoints.length - 1 : currentIndex - 1
+    );
+  };
+
+  const handleNextEndpoint = (): void => {
+    setActiveEndpointIndex((currentIndex) =>
+      currentIndex === data.endpoints.length - 1 ? 0 : currentIndex + 1
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -44,12 +83,13 @@ export const LabPageContent = (): ReactElement => {
           for reviewers who want the nerdy implementation story without digging through the whole repository first.
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
-          {stackItems.map((item) => (
+          {stackItems.map(({ icon: Icon, iconColor, label }) => (
             <span
-              key={item}
-              className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+              key={label}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
             >
-              {item}
+              <Icon aria-hidden="true" className="h-3.5 w-3.5 shrink-0" color={iconColor} size={14} />
+              {label}
             </span>
           ))}
         </div>
@@ -61,14 +101,20 @@ export const LabPageContent = (): ReactElement => {
             key={note.title}
             className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">{note.title}</p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+              <note.icon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <p>{note.title}</p>
+            </div>
             <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">{note.body}</p>
           </article>
         ))}
       </section>
 
       <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Library search notes</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <ArchiveIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>Library search notes</p>
+        </div>
         <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
           Search interaction improvements
         </h3>
@@ -91,7 +137,10 @@ export const LabPageContent = (): ReactElement => {
       </section>
 
       <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Loader preview</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <LoadingIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>Loader preview</p>
+        </div>
         <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
           Shared loading state
         </h3>
@@ -110,32 +159,56 @@ export const LabPageContent = (): ReactElement => {
 
       <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
         <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Live backend catalog</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+            <EndpointIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+            <p>Live backend catalog</p>
+          </div>
           <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
             Endpoint explorer
           </h3>
           <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
             Pulled directly from `/dev/endpoints`, so this page reflects the backend API surface instead of duplicating it by hand.
           </p>
-          <div className="mt-6 space-y-4">
-            {data.endpoints.map((endpoint) => (
-              <div
-                key={endpoint.path}
-                className="rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5"
-              >
+          {activeEndpoint ? (
+            <div className="mt-6 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-muted)]">
+                  {activeEndpointIndex + 1} / {data.endpoints.length}
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePreviousEndpoint}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+                    aria-label="Previous endpoint"
+                  >
+                    <CarouselPrevIcon aria-hidden="true" className="h-4 w-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextEndpoint}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+                    aria-label="Next endpoint"
+                  >
+                    <CarouselNextIcon aria-hidden="true" className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="rounded-[0.75rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="rounded-full bg-[var(--color-glow-strong)]/12 px-3 py-1 text-xs uppercase tracking-[0.22em] text-[var(--color-glow-strong)]">
-                    {endpoint.method}
+                    {activeEndpoint.method}
                   </span>
-                  <code className="rounded-full bg-black/10 px-3 py-1 text-sm text-[var(--color-text-strong)]">{endpoint.path}</code>
+                  <code className="rounded-full bg-black/10 px-3 py-1 text-sm text-[var(--color-text-strong)]">{activeEndpoint.path}</code>
                 </div>
-                <h4 className="mt-4 text-xl font-semibold text-[var(--color-text-strong)]">{endpoint.name}</h4>
-                <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">{endpoint.description}</p>
-                {endpoint.query ? (
+                <h4 className="mt-4 text-xl font-semibold text-[var(--color-text-strong)]">{activeEndpoint.name}</h4>
+                <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">{activeEndpoint.description}</p>
+                {activeEndpoint.query ? (
                   <div className="mt-4">
                     <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-text-faint)]">Query params</p>
                     <div className="mt-3 space-y-2">
-                      {Object.entries(endpoint.query).map(([key, value]) => (
+                      {Object.entries(activeEndpoint.query).map(([key, value]) => (
                         <div key={key} className="rounded-[1rem] border border-[var(--color-border)] px-3 py-2 text-sm">
                           <span className="font-medium text-[var(--color-text-strong)]">{key}</span>
                           <span className="ml-3 text-[var(--color-text-muted)]">{value}</span>
@@ -145,7 +218,7 @@ export const LabPageContent = (): ReactElement => {
                   </div>
                 ) : null}
                 <div className="mt-4 space-y-2">
-                  {endpoint.variations.map((variation) => (
+                  {activeEndpoint.variations.map((variation) => (
                     <div key={variation.path} className="rounded-[1rem] border border-dashed border-[var(--color-border)] px-3 py-3">
                       <p className="text-sm text-[var(--color-text-strong)]">{variation.description}</p>
                       <code className="mt-2 block text-xs text-[var(--color-text-faint)]">{variation.path}</code>
@@ -153,13 +226,16 @@ export const LabPageContent = (): ReactElement => {
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ) : null}
         </article>
 
         <div className="space-y-4">
           <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Request path</p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+              <DataFlowIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <p>Request path</p>
+            </div>
             <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
               {"NASA -> Express -> React"}
             </h3>
@@ -172,7 +248,10 @@ export const LabPageContent = (): ReactElement => {
           </article>
 
           <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Why this structure</p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+              <BackendIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <p>Why this structure</p>
+            </div>
             <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--color-text-muted)]">
               <p>Backend secrets stay server-side and NASA quirks are isolated from the UI.</p>
               <p>Frontend routes stay focused on experience design instead of raw API plumbing.</p>
@@ -181,7 +260,10 @@ export const LabPageContent = (): ReactElement => {
           </article>
 
           <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Runtime context</p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+              <FrontendIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <p>Runtime context</p>
+            </div>
             <div className="mt-4 grid gap-3">
               <div className="rounded-[0.625rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
                 <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-text-faint)]">Environment</p>

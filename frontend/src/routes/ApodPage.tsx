@@ -4,6 +4,7 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/feedback/ErrorBoundary';
 import { PanelSkeleton } from '@/components/feedback/PanelSkeleton';
 import { DateNavigation } from '@/components/controls/DateNavigation';
+import { ErrorIcon, RetryIcon } from '@/components/ui/icons';
 import { ApodExplorer } from '@/features/apod/components/ApodExplorer';
 import { shiftIsoDate, toIsoDate } from '@/features/apod/helpers/date';
 
@@ -44,15 +45,19 @@ export const ApodPage = (): ReactElement => {
             onReset={reset}
             renderFallback={(retry) => (
               <section className="rounded-[1rem] border border-[var(--color-alert)]/20 bg-[var(--color-panel)] p-8 shadow-[0_24px_80px_var(--color-shadow)]">
-                <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-alert)]">APOD unavailable</p>
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-alert)]">
+                  <ErrorIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+                  <p>APOD unavailable</p>
+                </div>
                 <p className="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
                   The selected APOD entry could not be loaded. Try a nearby date or confirm that the backend is running.
                 </p>
                 <button
                   type="button"
                   onClick={retry}
-                  className="mt-5 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+                  className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
                 >
+                  <RetryIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
                   Retry
                 </button>
               </section>

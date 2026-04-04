@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
+import { NavApodIcon } from '@/components/ui/icons';
 import { useApod } from '../hooks/useApod';
 import { MediaFrame } from '@/components/media/MediaFrame';
 
@@ -20,7 +21,10 @@ export const ApodExplorer = ({ date }: ApodExplorerProps): ReactElement => {
         fallbackLabel="This APOD entry does not include a displayable image. The metadata is still available in the side panel."
       />
       <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">Astronomy Picture of the Day</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <NavApodIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>Astronomy Picture of the Day</p>
+        </div>
         <h2 className="mt-5 font-[var(--font-display)] text-4xl tracking-[-0.06em] text-[var(--color-text-strong)]">
           {data.title}
         </h2>

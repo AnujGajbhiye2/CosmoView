@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import { Link } from '@tanstack/react-router';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
+import { MediaUnavailableIcon, NavApodIcon, NavAsteroidsIcon, NavEarthIcon, NavLibraryIcon } from '@/components/ui/icons';
 import { useMissionControlData } from '../hooks/useMissionControlData';
 
 const formatCompactDate = (value: string): string =>
@@ -72,12 +73,16 @@ export const MissionControlOverview = (): ReactElement => {
         {apod.imageUrl ? (
           <img src={apod.imageUrl} alt={apod.title} loading="eager" decoding="async" className="h-56 w-full object-cover" />
         ) : (
-          <div className="flex h-56 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
-            Media preview unavailable
+          <div className="flex h-56 flex-col items-center justify-center gap-3 bg-[var(--color-panel-strong)] px-6 text-center text-sm text-[var(--color-text-faint)]">
+            <MediaUnavailableIcon aria-hidden="true" className="h-8 w-8 text-[var(--color-glow-strong)]" />
+            <p>Media preview unavailable</p>
           </div>
         )}
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Today's frame</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+            <NavApodIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+            <p>Today's frame</p>
+          </div>
           <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">{apod.title}</h3>
           <p className="mt-3 line-clamp-5 text-sm leading-6 text-[var(--color-text-muted)]">{apod.explanation}</p>
           <Link
@@ -90,7 +95,10 @@ export const MissionControlOverview = (): ReactElement => {
       </article>
 
       <article className="rounded-[1rem] border border-white/10 bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
-        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Asteroid watch</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <NavAsteroidsIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>Asteroid watch</p>
+        </div>
         <div className="mt-6 grid gap-4">
           <div className="rounded-[0.75rem] border border-white/8 bg-[var(--color-panel-strong)] p-4">
             <p className="text-sm text-[var(--color-text-muted)]">Tracked objects</p>
@@ -120,12 +128,16 @@ export const MissionControlOverview = (): ReactElement => {
         {featuredEpic?.archiveUrl ? (
           <img src={featuredEpic.archiveUrl} alt={featuredEpic.caption} loading="lazy" decoding="async" className="h-52 w-full object-cover" />
         ) : (
-          <div className="flex h-52 items-center justify-center bg-[var(--color-panel-strong)] text-sm text-[var(--color-text-faint)]">
-            Earth imagery unavailable
+          <div className="flex h-52 flex-col items-center justify-center gap-3 bg-[var(--color-panel-strong)] px-6 text-center text-sm text-[var(--color-text-faint)]">
+            <MediaUnavailableIcon aria-hidden="true" className="h-8 w-8 text-[var(--color-glow-strong)]" />
+            <p>Earth imagery unavailable</p>
           </div>
         )}
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">EPIC preview</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+            <NavEarthIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+            <p>EPIC preview</p>
+          </div>
           <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-text-strong)]">
             Earth observation on {featuredEpic ? formatCompactDate(featuredEpic.date.slice(0, 10)) : '—'}
           </h3>
@@ -139,7 +151,10 @@ export const MissionControlOverview = (): ReactElement => {
       </article>
 
       <article className="rounded-[1rem] border border-white/10 bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)] lg:col-span-4">
-        <p className="text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-glow-strong)]">Library signal</p>
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <NavLibraryIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>Library signal</p>
+        </div>
         <div className="mt-5 flex gap-4">
           {featuredSearch?.previewImageUrl ? (
             <img

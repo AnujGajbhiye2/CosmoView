@@ -13,6 +13,12 @@ import {
   YAxis
 } from 'recharts';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
+import {
+  NavAsteroidsIcon,
+  SortAscIcon,
+  SortDescIcon,
+  SortNeutralIcon
+} from '@/components/ui/icons';
 import { useAsteroidFeed } from '../hooks/useAsteroidFeed';
 
 interface AsteroidAnalyticsProps {
@@ -107,12 +113,18 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
     setSortDirection(defaultDirectionByColumn[nextKey]);
   };
 
-  const renderSortIndicator = (column: SortKey): string => {
+  const renderSortIndicator = (column: SortKey): ReactElement => {
+    const className = 'h-3.5 w-3.5 shrink-0 text-[var(--color-text-faint)]';
+
     if (sortKey !== column) {
-      return '<>';
+      return <SortNeutralIcon aria-hidden="true" className={className} />;
     }
 
-    return sortDirection === 'asc' ? '^' : 'v';
+    if (sortDirection === 'asc') {
+      return <SortAscIcon aria-hidden="true" className={className} />;
+    }
+
+    return <SortDescIcon aria-hidden="true" className={className} />;
   };
 
   const velocityData = tableRows.slice(0, 8).map((asteroid) => ({
@@ -185,7 +197,10 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
         <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">Velocity profile</p>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">
+                <NavAsteroidsIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <p>Velocity profile</p>
+              </div>
               <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
                 Relative speed across the watch window
               </h3>
@@ -235,7 +250,10 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
         </article>
 
         <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">Risk matrix</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">
+            <NavAsteroidsIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+            <p>Risk matrix</p>
+          </div>
           <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
             Size vs. miss distance
           </h3>
@@ -303,7 +321,10 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
       <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">Inspection table</p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[#60a5fa]">
+              <NavAsteroidsIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <p>Inspection table</p>
+            </div>
             <h3 className="mt-4 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
               Raw close-approach view
             </h3>

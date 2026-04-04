@@ -121,6 +121,12 @@ select {
   min-height: 100vh;
 }
 
+.match-height {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 /* ============================================================
  *  Theme-dependent image overrides
  * ============================================================ */
