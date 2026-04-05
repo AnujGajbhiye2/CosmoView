@@ -250,6 +250,44 @@ npm run test:e2e
 
 The repository includes Playwright coverage for navigation, loading states, error states, APOD flows, asteroid flows, Earth flows, and library flows. Backend tests cover the Express app and service behavior with Vitest and Supertest.
 
+## CI/CD
+
+GitHub Actions handles both pull request validation and production deployment from `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
+
+### CI on pull requests
+
+For pull requests targeting `master`, the `CI` workflow runs:
+
+- Backend job on Ubuntu with Node 20
+- `cd backend && npm ci`
+- `cd backend && npm run check`
+- `cd backend && npm test`
+- Frontend job on Ubuntu with Node 20
+- `cd frontend && npm ci`
+- `cd frontend && npm run check`
+
+This means every PR is gated by backend type safety, backend unit/integration tests, and frontend type checking before merge.
+
+### Deployment on push to master
+
+For pushes to `master`, the `Deploy` workflow runs in three stages:
+
+1. `checks`
+   - Installs backend and frontend dependencies on Ubuntu with Node 22
+   - Runs backend type checks
+   - Runs backend tests
+   - Runs frontend type checks
+2. `deploy`
+   - Triggers the Render deploy hook for the backend
+   - Deploys the frontend to Vercel in production mode
+   - Polls `https://cosmoview.onrender.com/health` until the new backend deployment is healthy
+3. `e2e`
+   - Installs Playwright Chromium
+   - Runs the frontend Playwright suite against the live production deployment at `https://cosmo-view.vercel.app`
+   - Uploads the Playwright report as a GitHub Actions artifact
+
+The deployment pipeline is intentionally ordered so that no production deployment happens until the codebase passes the required checks, and no post-deploy verification runs until both backend and frontend releases are live.
+
 ## Deployment
 
 ### Frontend on Vercel
@@ -276,6 +314,13 @@ Required backend environment variables in production:
 - `FRONTEND_ORIGIN`
 - `PORT`
 - `NODE_ENV`
+
+GitHub Actions deployment also expects these repository secrets:
+
+- `RENDER_DEPLOY_HOOK_URL`
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
 
 ## Engineering Notes
 
