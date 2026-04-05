@@ -1,5 +1,4 @@
-import type { ComponentType, ReactElement } from 'react';
-import type { SVGProps } from 'react';
+import type { ReactElement } from 'react';
 import { useState } from 'react';
 import { SpaceLoader } from '@/components/feedback/SpaceLoader';
 import {
@@ -22,7 +21,6 @@ import {
 } from '@/components/ui/icons';
 import { useDevEndpoints } from '../hooks/useDevEndpoints';
 
-type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { color?: string; size?: number }>;
 
 const architectureNotes = [
   {

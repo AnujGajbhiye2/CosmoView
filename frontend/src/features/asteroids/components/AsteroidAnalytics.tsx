@@ -237,7 +237,7 @@ export const AsteroidAnalytics = ({ startDate, endDate }: AsteroidAnalyticsProps
                   <Bar
                     dataKey="velocity"
                     radius={[0, 6, 6, 0]}
-                    label={{ position: 'right', fontSize: 11, fill: 'var(--color-text-faint)', formatter: (value: number) => formatNumber(value) }}
+                    label={{ position: 'right', fontSize: 11, fill: 'var(--color-text-faint)', formatter: (value: unknown) => formatNumber(value as number) }}
                   >
                     {velocityData.map((entry, index) => (
                       <Cell key={index} fill={entry.hazardous ? 'var(--color-alert)' : '#60a5fa'} />
