@@ -90,9 +90,9 @@ jobs:
       # Poll Render health until the new deploy is live (max 3 min)
       - name: Wait for Render backend to be healthy
         run: |
-          echo "Polling https://cosmoview.onrender.com/api/v1/health ..."
+          echo "Polling https://cosmoview.onrender.com/health ..."
           for i in $(seq 1 18); do
-            STATUS=$(curl -sf https://cosmoview.onrender.com/api/v1/health | jq -r '.data.status' 2>/dev/null || echo "")
+            STATUS=$(curl -sf https://cosmoview.onrender.com/health | jq -r '.data.status' 2>/dev/null || echo "")
             if [ "$STATUS" = "ok" ]; then
               echo "Backend healthy after $((i * 10))s"
               exit 0
