@@ -22,6 +22,9 @@ const toIsoDate = (value: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
+const toMonthBoundary = (value: Date): Date => new Date(value.getFullYear(), value.getMonth(), 1);
+const startOfDay = (value: Date): Date => new Date(value.getFullYear(), value.getMonth(), value.getDate());
+
 interface DateNavigationProps {
   label: string;
   value: string;
@@ -45,6 +48,10 @@ export const DateNavigation = ({
   const selectedDate = parseIsoDate(value);
   const minDate = min ? parseIsoDate(min) : undefined;
   const maxDate = max ? parseIsoDate(max) : undefined;
+  const startMonth = minDate ? toMonthBoundary(minDate) : new Date(selectedDate.getFullYear() - 100, 0, 1);
+  const endMonth = maxDate ? toMonthBoundary(maxDate) : new Date(selectedDate.getFullYear(), 11, 1);
+  const isPreviousDisabled = onShift ? (minDate ? startOfDay(selectedDate) <= startOfDay(minDate) : false) : false;
+  const isNextDisabled = onShift ? (maxDate ? startOfDay(selectedDate) >= startOfDay(maxDate) : false) : false;
 
   useEffect(() => {
     if (!isOpen) {
@@ -79,8 +86,9 @@ export const DateNavigation = ({
         {onShift ? (
           <button
             type="button"
+            disabled={isPreviousDisabled}
             onClick={() => onShift(-1)}
-            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--color-border)]"
           >
             Previous
           </button>
@@ -123,7 +131,11 @@ export const DateNavigation = ({
                 mode="single"
                 selected={selectedDate}
                 defaultMonth={selectedDate}
-                navLayout="after"
+                captionLayout="dropdown"
+                hideNavigation
+                startMonth={startMonth}
+                endMonth={endMonth}
+                reverseYears
                 disabled={[
                   ...(minDate ? [{ before: minDate }] : []),
                   ...(maxDate ? [{ after: maxDate }] : [])
@@ -141,9 +153,7 @@ export const DateNavigation = ({
                   months: 'flex',
                   month: 'space-y-3',
                   month_caption: 'flex w-full items-center justify-between gap-3 px-1',
-                  caption_label:
-                    'font-[var(--font-display)] text-base tracking-[-0.03em] text-[var(--color-text-strong)]',
-                  nav: 'absolute top-0 right-0 inset-auto flex items-center gap-2',
+                  dropdowns: 'flex items-center gap-2',
                   button_previous:
                     'flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]',
                   button_next:
@@ -165,8 +175,9 @@ export const DateNavigation = ({
         {onShift ? (
           <button
             type="button"
+            disabled={isNextDisabled}
             onClick={() => onShift(1)}
-            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+            className="rounded-full cursor-pointer border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-3 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--color-border)]"
           >
             Next
           </button>

@@ -129,6 +129,44 @@ select {
 }
 
 /* ============================================================
+ *  Date picker native dropdowns
+ * ============================================================ */
+
+.cv-date-picker select {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] .cv-date-picker select {
+  color-scheme: light;
+}
+
+.cv-date-picker option {
+  background-color: var(--color-space-elevated);
+  color: var(--color-text-strong);
+}
+
+.cv-date-picker select::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cv-date-picker select::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--color-space-elevated) 88%, transparent);
+}
+
+.cv-date-picker select::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-border-strong) 85%, transparent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.cv-date-picker select {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-border-strong) 85%, transparent)
+    color-mix(in srgb, var(--color-space-elevated) 88%, transparent);
+}
+
+/* ============================================================
  *  Theme-dependent image overrides
  * ============================================================ */
 
