@@ -128,7 +128,7 @@ export const DateNavigation = ({
                   ...(minDate ? [{ before: minDate }] : []),
                   ...(maxDate ? [{ after: maxDate }] : [])
                 ]}
-                onSelect={(nextDate) => {
+                onSelect={(nextDate: Date | undefined) => {
                   if (!nextDate) {
                     return;
                   }
