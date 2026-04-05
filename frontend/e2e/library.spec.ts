@@ -98,9 +98,9 @@ test.describe('Library page', () => {
     await expect(page.getByRole('heading', { level: 3, name: /images for "nebula"/ })).toBeVisible();
 
     // Image card titles
-    await expect(page.getByRole('heading', { level: 4, name: 'Orion Nebula' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 4, name: 'Orion Nebula' }).first()).toBeVisible();
     await expect(
-      page.getByRole('heading', { level: 4, name: 'Orion Nebula Wide Field' })
+      page.getByRole('heading', { level: 4, name: 'Orion Nebula Wide Field' }).first()
     ).toBeVisible();
   });
 
@@ -157,7 +157,7 @@ test.describe('Library page', () => {
     await page.getByRole('button', { name: 'Search archive' }).click();
 
     // Click the second card
-    await page.getByRole('heading', { level: 4, name: 'Orion Nebula Wide Field' }).click();
+    await page.getByRole('heading', { level: 4, name: 'Orion Nebula Wide Field' }).first().click();
 
     // The detail panel on the right should show the selected image title
     await expect(

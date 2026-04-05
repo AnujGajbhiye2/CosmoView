@@ -163,11 +163,11 @@ test.describe('Asteroids page', () => {
     await page.goto('/asteroids');
 
     await expect(page.getByText('Tracked objects')).toBeVisible();
-    await expect(page.getByText('Hazardous objects')).toBeVisible();
+    await expect(page.getByText('Hazardous objects', { exact: true }).first()).toBeVisible();
 
     // Total count from mock
-    await expect(page.getByText('3')).toBeVisible();
+    await expect(page.getByText('3', { exact: true }).first()).toBeVisible();
     // Hazardous count (1 in mock)
-    await expect(page.getByText('1')).toBeVisible();
+    await expect(page.getByText('1', { exact: true }).first()).toBeVisible();
   });
 });

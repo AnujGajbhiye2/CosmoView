@@ -138,7 +138,7 @@ test.describe('APOD page', () => {
 
     // Click the first enabled day button inside the calendar
     const enabledDay = calendarDialog
-      .locator('button[class*="day_button"]:not([disabled])')
+      .locator('td button:not([disabled])')
       .first();
     await enabledDay.click();
 

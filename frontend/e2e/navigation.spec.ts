@@ -11,6 +11,10 @@ const routes = [
 
 test.describe('Navigation', () => {
   test.beforeEach(async ({ page }) => {
+    // Mock all API calls to avoid CORS errors when running against localhost
+    await page.route('**/api/v1/**', (route) =>
+      route.fulfill({ status: 200, contentType: 'application/json', body: '{"data":null,"meta":{}}' })
+    );
     await page.goto('/');
   });
 
