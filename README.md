@@ -11,6 +11,7 @@ CosmoView is a NASA data explorer built for a software engineering coding challe
 - Lightweight exploration copilot on the image-library route
 - Reviewer-friendly `/lab` route for API exploration and architecture notes
 
+
 ## Product Routes
 - `/` Mission Control overview
 - `/apod` Astronomy Picture of the Day explorer
