@@ -35,7 +35,7 @@ export const ApodExplorer = ({ date }: ApodExplorerProps): ReactElement => {
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="mt-2 text-sm font-medium text-[var(--color-glow)] transition-colors hover:text-[var(--color-glow-strong)]"
+          className="mt-2 cursor-pointer text-sm font-medium text-[var(--color-glow)] transition-colors hover:text-[var(--color-glow-strong)]"
         >
           {expanded ? 'Show less' : 'Read more'}
         </button>

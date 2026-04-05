@@ -29,6 +29,12 @@ export const AppShell = ({ children }: PropsWithChildren): ReactElement => {
 
   return (
     <div className="min-h-screen bg-[var(--color-space)] text-[var(--color-ice)]">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:border focus:border-[var(--color-border-strong)] focus:bg-[var(--color-panel)] focus:px-5 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--color-text-strong)] focus:shadow-[0_4px_20px_var(--color-shadow)]"
+      >
+        Skip to main content
+      </a>
       <CometBackground />
       <div className="pointer-events-none fixed inset-0 z-[1] bg-[radial-gradient(circle_at_top,_rgba(110,185,255,0.18),_transparent_38%),radial-gradient(circle_at_bottom_right,_rgba(248,167,92,0.14),_transparent_30%)]" />
       <div className="relative z-[2] mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10 bg-[var(--color-space)]">
@@ -48,14 +54,14 @@ export const AppShell = ({ children }: PropsWithChildren): ReactElement => {
             <div className="hidden md:block">
               <ThemeToggle />
             </div>
-            <nav className="flex flex-wrap gap-2">
+            <nav aria-label="Main navigation" className="flex flex-wrap gap-2">
               {navigationItems.map((item) => (
                 <NavLink key={item.href} href={item.href} icon={item.icon} label={item.label} />
               ))}
             </nav>
           </div>
         </header>
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
 
         <footer className="mt-8 flex flex-col items-center gap-3 rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] px-5 py-6 text-center backdrop-blur sm:flex-row sm:justify-between sm:text-left">
           <div>

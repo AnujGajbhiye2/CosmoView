@@ -18,6 +18,7 @@ export const NavLink = ({ href, icon: Icon, label }: NavLinkProps): ReactElement
   return (
     <Link
       to={href}
+      aria-current={isActive ? 'page' : undefined}
       className={cn(
         'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors',
         isActive

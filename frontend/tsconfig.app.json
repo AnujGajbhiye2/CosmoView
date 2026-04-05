@@ -23,13 +23,11 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "ignoreDeprecations": "5.0",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "~components/*": ["src/components/*"],
-      "~features/*": ["src/features/*"],
-      "~types/*": ["src/types/*"]
+      "@/*": ["./src/*"],
+      "~components/*": ["./src/components/*"],
+      "~features/*": ["./src/features/*"],
+      "~types/*": ["./src/types/*"]
     }
   },
   "include": ["src"]

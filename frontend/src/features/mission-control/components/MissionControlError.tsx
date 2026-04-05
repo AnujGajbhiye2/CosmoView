@@ -23,7 +23,7 @@ export const MissionControlError = ({ onRetry }: MissionControlErrorProps): Reac
         <button
           type="button"
           onClick={onRetry}
-          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+          className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
         >
           <RetryIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
           Retry

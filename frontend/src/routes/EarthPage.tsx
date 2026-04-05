@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 import { Suspense, useState } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/feedback/ErrorBoundary';
-import { PanelSkeleton } from '@/components/feedback/PanelSkeleton';
+import { EarthSkeleton } from '@/components/feedback/EarthSkeleton';
 import { DateNavigation } from '@/components/controls/DateNavigation';
 import { ErrorIcon, RetryIcon } from '@/components/ui/icons';
 import { EarthExplorer } from '@/features/earth/components/EarthExplorer';
@@ -56,7 +56,7 @@ export const EarthPage = (): ReactElement => {
                 <button
                   type="button"
                   onClick={retry}
-                  className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+                  className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-5 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
                 >
                   <RetryIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
                   Retry
@@ -64,7 +64,7 @@ export const EarthPage = (): ReactElement => {
               </section>
             )}
           >
-            <Suspense fallback={<PanelSkeleton className="min-h-[32rem]" />}>
+            <Suspense fallback={<EarthSkeleton />}>
               <EarthExplorer key={selectedDate} date={selectedDate} />
             </Suspense>
           </ErrorBoundary>

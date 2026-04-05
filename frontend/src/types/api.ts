@@ -74,6 +74,13 @@ export interface ImageSearchDto {
   hasNextPage: boolean;
 }
 
+export interface AiMissionBriefDto {
+  aiAvailable: boolean;
+  summary?: string;
+  signal?: string;
+  prompts?: string[];
+}
+
 export interface EpicImageDto {
   identifier: string;
   caption: string;

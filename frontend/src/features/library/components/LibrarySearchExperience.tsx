@@ -105,7 +105,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
                     key={item.nasaId}
                     type="button"
                     onClick={() => setSelectedId(item.nasaId)}
-                    className={`overflow-hidden rounded-[0.875rem] border text-left shadow-[0_24px_80px_var(--color-shadow)] transition ${
+                    className={`cursor-pointer overflow-hidden rounded-[0.875rem] border text-left shadow-[0_24px_80px_var(--color-shadow)] transition ${
                       isActive
                         ? 'border-[var(--color-glow-strong)] bg-[var(--color-panel)]'
                         : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
@@ -140,7 +140,7 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
                   type="button"
                   onClick={() => void fetchNextPage()}
                   disabled={isFetchingNextPage}
-                  className="rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="cursor-pointer rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Load more results
                 </button>

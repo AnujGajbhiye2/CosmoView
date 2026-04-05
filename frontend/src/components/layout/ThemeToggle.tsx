@@ -10,7 +10,7 @@ export const ThemeToggle = (): ReactElement => {
       type="button"
       onClick={toggleTheme}
       className={cn(
-        'inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm transition-colors',
+        'inline-flex cursor-pointer items-center gap-3 rounded-full border px-4 py-2 text-sm transition-colors',
         'border-white/12 bg-white/6 text-white/80 hover:border-white/25 hover:bg-white/10',
         'data-[theme=light]:border-black/12 data-[theme=light]:bg-black/4 data-[theme=light]:text-slate-700'
       )}

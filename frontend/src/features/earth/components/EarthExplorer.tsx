@@ -52,7 +52,9 @@ export const EarthExplorer = ({ date }: EarthExplorerProps): ReactElement => {
                 key={image.identifier}
                 type="button"
                 onClick={() => setSelectedIdentifier(image.identifier)}
-                className={`rounded-[0.75rem] border p-4 text-left transition ${
+                aria-pressed={isActive}
+                aria-label={`View frame ${image.identifier}`}
+                className={`cursor-pointer rounded-[0.75rem] border p-4 text-left transition ${
                   isActive
                     ? 'border-[var(--color-glow-strong)] bg-[var(--color-glow-strong)]/10'
                     : 'border-[var(--color-border)] bg-[var(--color-panel-soft)] hover:border-[var(--color-border-strong)]'
