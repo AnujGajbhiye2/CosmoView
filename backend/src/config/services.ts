@@ -5,6 +5,7 @@ import { ApodService } from '../services/nasa/apodService.js';
 import { AsteroidsService } from '../services/nasa/asteroidsService.js';
 import { EpicService } from '../services/nasa/epicService.js';
 import { ImageLibraryService } from '../services/nasa/imageLibraryService.js';
+import { GeminiService } from '../services/ai/geminiService.js';
 
 const cache = new MemoryCache();
 
@@ -29,5 +30,6 @@ export const services = {
   apod: new ApodService(nasaApiClient, cache, env.NASA_CACHE_TTL_APOD_MS),
   asteroids: new AsteroidsService(nasaApiClient, cache, env.NASA_CACHE_TTL_ASTEROIDS_MS),
   images: new ImageLibraryService(nasaImageClient, cache, env.NASA_CACHE_TTL_IMAGES_MS),
-  epic: new EpicService(epicClient, cache, env.NASA_CACHE_TTL_EPIC_MS)
+  epic: new EpicService(epicClient, cache, env.NASA_CACHE_TTL_EPIC_MS),
+  gemini: new GeminiService(env, cache)
 };

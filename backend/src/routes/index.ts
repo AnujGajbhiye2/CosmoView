@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { aiRouter } from './aiRoutes.js';
 import { apodRouter } from './apodRoutes.js';
 import { asteroidsRouter } from './asteroidsRoutes.js';
 import { devRouter } from './devRoutes.js';
@@ -14,3 +15,4 @@ appRouter.use('/api/v1/apod', apodRouter);
 appRouter.use('/api/v1/asteroids', asteroidsRouter);
 appRouter.use('/api/v1/images', imagesRouter);
 appRouter.use('/api/v1/epic', epicRouter);
+appRouter.use('/api/v1/ai', aiRouter);

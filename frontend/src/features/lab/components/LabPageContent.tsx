@@ -10,6 +10,7 @@ import {
   FrontendIcon,
   LoadingIcon,
   SiExpress,
+  SiGithub,
   SiReact,
   SiTailwindcss,
   SiTypescript,
@@ -110,10 +111,10 @@ const featureHighlights = [
     ),
     items: [
       'Explorer Copilot lives on the Library route alongside every search result set',
-      'Synthesises the active query into a contextual "mission brief" from live results',
-      'Generates 3 tailored follow-up exploration prompts based on what was found',
-      '100 % local and heuristic-based — no external LLM API key required',
-      'Designed as a UX enhancement layer on top of real NASA archive data',
+      'Starts with an instant heuristic mission brief built from the active query, result set, and selected image',
+      'Lets the user trigger a real AI enhancement that posts search context to the backend mission-brief endpoint',
+      'Returns a richer summary, signal read, and 3 follow-up prompts when the deployment has AI configured',
+      'Falls back cleanly to the local heuristic brief if AI is unavailable, expired, or rate limited',
     ],
   },
   {
@@ -284,110 +285,7 @@ export const LabPageContent = (): ReactElement => {
         </div>
       </section>
 
-      {/* ── Explorer Copilot deep-dive ── */}
-      <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
-        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 shrink-0">
-            <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
-            <path d="M5 17l.75 2.25L8 20l-2.25.75L5 23l-.75-2.25L2 20l2.25-.75L5 17z" />
-            <path d="M19 3l.5 1.5L21 5l-1.5.5L19 7l-.5-1.5L17 5l1.5-.5L19 3z" />
-          </svg>
-          <p>Explorer Copilot</p>
-        </div>
-        <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
-          Local AI feature — no model API required.
-        </h3>
-        <p className="mt-3 max-w-3xl text-base leading-7 text-[var(--color-text-faint)]">
-          Explorer Copilot is a lightweight prompt synthesis layer that lives on the{' '}
-          <span className="font-medium text-[var(--color-text-muted)]">/library</span> route. It reads the active search
-          query, result set, and selected item, then assembles a contextual "mission brief" entirely in the browser — no
-          external LLM call, no API key, no latency spike.
-        </p>
 
-        {/* Pipeline steps */}
-        <div className="mt-6">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-text-faint)]">How it works</p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { step: '01', title: 'Search query', body: 'User types a topic — e.g. "nebula". The debounced input commits and triggers the NASA image library fetch.' },
-              { step: '02', title: 'Result set', body: 'The API returns up to 100 catalog items. The copilot reads totalHits and the first page of results.' },
-              { step: '03', title: 'Selected item', body: 'User clicks a card. The copilot receives the item\'s title, description, and dateCreated for richer output.' },
-              { step: '04', title: 'Mission brief', body: 'buildMissionBrief() assembles a summary, a signal read, and 3 follow-up prompts — all from string templates.' },
-            ].map(({ step, title, body }) => (
-              <div key={step} className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-4">
-                <p className="font-[var(--font-display)] text-2xl tracking-[-0.04em] text-[var(--color-glow)]/40">{step}</p>
-                <p className="mt-2 text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-text-strong)]">{title}</p>
-                <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Output breakdown — static example */}
-        <div className="mt-6">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-text-faint)]">Output — example for query "nebula"</p>
-          <div className="mt-4 grid gap-4 lg:grid-cols-3">
-
-            {/* Summary */}
-            <div className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-text-faint)]">Summary</p>
-              <p className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
-                Searching for "nebula" surfaced 10,542 catalog hits. The current frame, "Horsehead Nebula Wide Field",
-                was created on 2003-04-14 and suggests a useful line of inquiry around visual composition, mission
-                context, and scientific subject matter.
-              </p>
-            </div>
-
-            {/* Signal read */}
-            <div className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-text-faint)]">Signal read</p>
-              <p className="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">
-                A Hubble Space Telescope image of the iconic Horsehead Nebula in Orion, captured in infrared light.
-                The backlit pillar of gas and dust is roughly 3.5 light-years tall…
-              </p>
-            </div>
-
-            {/* Follow-up prompts */}
-            <div className="rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-text-faint)]">Follow-up prompts</p>
-              <ol className="mt-3 space-y-3">
-                {[
-                  'Compare "Horsehead Nebula Wide Field" with today\'s APOD and note what kind of space storytelling each image supports.',
-                  'Use the nebula search results to build a three-image mini exhibition around one scientific theme.',
-                  'Read the description and ask what mission or instrument would make this frame more meaningful to a viewer.',
-                ].map((prompt, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm leading-6 text-[var(--color-text-muted)]">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] text-[0.65rem] font-bold text-[var(--color-glow)]">
-                      {i + 1}
-                    </span>
-                    {prompt}
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Technical callout */}
-        <div className="mt-6 flex items-start gap-3 rounded-[0.875rem] border border-[var(--color-border)] bg-[var(--color-panel-soft)] p-5">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-glow)]">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
-          <p className="text-sm leading-6 text-[var(--color-text-muted)]">
-            <span className="font-semibold text-[var(--color-text-strong)]">Implementation note — </span>
-            the entire copilot lives in{' '}
-            <code className="rounded bg-black/10 px-1.5 py-0.5 text-xs">features/library/helpers/copilot.ts</code>
-            {' '}as a pure function:{' '}
-            <code className="rounded bg-black/10 px-1.5 py-0.5 text-xs">buildMissionBrief(query, results, selectedItem)</code>.
-            {' '}It uses string interpolation and conditional branching only — no model, no fetch, no state. The{' '}
-            <code className="rounded bg-black/10 px-1.5 py-0.5 text-xs">ExplorerCopilot</code>
-            {' '}component calls it on every render and the output updates instantly as the user clicks through results.
-          </p>
-        </div>
-      </section>
 
       {/* ── Loader preview ── */}
       <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
@@ -551,6 +449,30 @@ export const LabPageContent = (): ReactElement => {
             </div>
           </article>
         </div>
+      </section>
+
+      {/* ── View source ── */}
+      <section className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 shadow-[0_24px_80px_var(--color-shadow)]">
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--color-glow-strong)]">
+          <SiGithub aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <p>View source</p>
+        </div>
+        <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
+          CosmoView lives on GitHub.
+        </h3>
+        <p className="mt-3 text-base leading-7 text-[var(--color-text-faint)]">
+          Review the full Express backend, React frontend, and documentation by browsing the public repository. Every
+          commit follows the same feature-sliced structure as this app, so you can see the live code behind the Lab notes.
+        </p>
+        <a
+          href="https://github.com/AnujGajbhiye2/CosmoView"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-panel-soft)] px-4 py-2 text-sm text-[var(--color-text-strong)] transition hover:border-[var(--color-border-strong)]"
+        >
+          <SiGithub aria-hidden="true" className="h-4 w-4 shrink-0 text-[var(--color-text-strong)]" />
+          View on GitHub
+        </a>
       </section>
 
       {/* ── Additional Touches ── */}

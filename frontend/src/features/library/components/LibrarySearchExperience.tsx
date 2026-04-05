@@ -95,7 +95,10 @@ export const LibrarySearchExperience = ({ query }: LibrarySearchExperienceProps)
         </article>
 
         <article className="rounded-[1rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-4 shadow-[0_24px_80px_var(--color-shadow)]">
-          <div ref={resultsPaneRef} className="max-h-[73rem] overflow-y-auto pr-2">
+          <div
+            ref={resultsPaneRef}
+            className="max-h-[73rem] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[var(--color-border)] hover:scrollbar-thumb-[var(--color-glow-strong)]"
+          >
             <div className="grid gap-4 sm:grid-cols-2">
               {aggregatedResults.items.map((item) => {
                 const isActive = item.nasaId === selectedItem?.nasaId;

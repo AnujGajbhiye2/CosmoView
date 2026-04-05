@@ -25,7 +25,7 @@ export { ChevronUp as SortAscIcon } from 'lucide-react';
 export { ChevronDown as SortDescIcon } from 'lucide-react';
 
 // Tech stack — Simple Icons (brand logos)
-export { SiReact, SiVite, SiTypescript, SiTailwindcss, SiExpress } from '@icons-pack/react-simple-icons';
+export { SiReact, SiVite, SiTypescript, SiTailwindcss, SiExpress, SiGithub } from '@icons-pack/react-simple-icons';
 
 // Tech stack — lucide fallbacks (no Simple Icon for these)
 export { Layers as TanStackIcon } from 'lucide-react'; // TanStack Router + Query

@@ -2,6 +2,13 @@
 
 CosmoView is a NASA data explorer built for a software engineering coding challenge. It combines a React frontend with a Node.js + Express backend to turn NASA's open APIs into a mission-control style experience for imagery, Earth observation, asteroid analytics, and archive search.
 
+## Live Demo
+
+| | URL |
+|---|---|
+| **Frontend** | https://cosmo-view.vercel.app |
+| **Backend API** | https://cosmoview.onrender.com |
+
 ## Highlights
 - React 19 + Vite 8 frontend with TypeScript, TanStack Router, and TanStack Query
 - Node.js + Express backend with TypeScript, Zod validation, caching, error handling, and NASA API normalization
@@ -204,15 +211,15 @@ Key frontend design choices:
 
 ## Deployment
 
-Planned deployment shape:
-- Frontend on Vercel
-- Backend on Render
+Deployed at:
+- Frontend: https://cosmo-view.vercel.app (Vercel)
+- Backend: https://cosmoview.onrender.com (Render)
 
 ### Frontend on Vercel
 - Root directory: `frontend`
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variable: `VITE_API_BASE_URL=<your-render-backend-url>`
+- Environment variable: `VITE_API_BASE_URL=https://cosmoview.onrender.com`
 
 A Vercel SPA rewrite config is included at [`frontend/vercel.json`](frontend/vercel.json).
 

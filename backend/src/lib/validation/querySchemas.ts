@@ -46,3 +46,13 @@ export const imageSearchQuerySchema = z.object({
 export const epicQuerySchema = z.object({
   date: isoDateSchema
 });
+
+export const missionBriefInputSchema = z.object({
+  query: z.string().trim().min(1).max(200),
+  totalHits: z.coerce.number().int().nonnegative(),
+  selectedItem: z.object({
+    title: z.string().max(200),
+    description: z.string().max(800).nullable(),
+    dateCreated: z.string()
+  }).optional()
+});
