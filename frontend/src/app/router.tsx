@@ -15,7 +15,7 @@ const rootRoute = createRootRoute({
       <AppShell>
         <Outlet />
       </AppShell>
-      <TanStackRouterDevtools position="bottom-right" />
+      {import.meta.env.DEV && <TanStackRouterDevtools position="bottom-right" />}
     </>
   )
 });

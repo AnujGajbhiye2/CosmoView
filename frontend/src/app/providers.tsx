@@ -22,7 +22,7 @@ export const AppProviders = ({ children }: PropsWithChildren): ReactElement => {
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         {children}
-        <ReactQueryDevtools initialIsOpen={false} />
+        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </ThemeProvider>
   );
