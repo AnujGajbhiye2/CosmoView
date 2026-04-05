@@ -406,7 +406,7 @@ export const LabPageContent = (): ReactElement => {
               <p>Request path</p>
             </div>
             <h3 className="mt-3 text-3xl font-[var(--font-display)] tracking-[-0.05em] text-[var(--color-text-strong)]">
-              {"NASA -> Express -> React"}
+              {'NASA → Express → React'}
             </h3>
             <ol className="mt-6 space-y-3 text-sm leading-6 text-[var(--color-text-muted)]">
               <li>1. The React route requests data through a feature-specific API client.</li>
